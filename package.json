@@ -8,8 +8,8 @@
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "cross-env NODE_ENV=test mocha-webpack --webpack-config node_modules/laravel-mix/setup/webpack.config.js --require resources/assets/js/tests/setup.js resources/assets/js/tests/*.spec.js",
-        "test-watch": "cross-env NODE_ENV=test mocha-webpack --webpack-config node_modules/laravel-mix/setup/webpack.config.js --watch --require resources/assets/js/tests/setup.js resources/assets/js/tests/*.spec.js"
+        "test": "mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require resources/assets/js/tests/setup.js resources/assets/js/tests/\\*\\*/\\*.spec.js",
+        "test-watch": "mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --watch --require resources/assets/js/tests/setup.js resources/assets/js/tests/\\*\\*/\\*.spec.js"
     },
     "devDependencies": {
         "axios": "^0.16.2",
