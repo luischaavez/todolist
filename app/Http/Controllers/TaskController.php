@@ -17,10 +17,9 @@ class TaskController extends Controller
      *
      * @return \App\Task
      */
-    public function index()
+    public function index(TaskFilters $tasksFilters)
     {
-        $tasks = Task::where("user_id", auth()->id())
-            ->get();
+        $tasks = Task::filter($tasksFilters)->get();
 
         if(request()->wantsJson()) {
             return $tasks->toArray();
