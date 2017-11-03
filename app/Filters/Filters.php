@@ -14,7 +14,7 @@ abstract class Filters
 
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        $this->setRequest($request);
     }
 
     public function apply($builder)
@@ -32,6 +32,15 @@ abstract class Filters
 
     public function filters()
     {
-        return array_filter($this->request->only($this->filters));
+        return $this->request->only($this->filters);
+    }
+
+    protected function setRequest(Request $request)
+    {
+        if(! $request->has("completed")) {
+            $request->merge(["completed" => false]);
+        }
+
+        $this->request = $request;
     }
 }
