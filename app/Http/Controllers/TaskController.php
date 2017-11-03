@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use App\Filters\TasksFilters;
 
 class TaskController extends Controller
 {
@@ -17,9 +18,9 @@ class TaskController extends Controller
      *
      * @return \App\Task
      */
-    public function index(TaskFilters $tasksFilters)
+    public function index(TasksFilters $filters)
     {
-        $tasks = Task::filter($tasksFilters)->get();
+        $tasks = Task::of(auth()->user())->filter($filters)->get();
 
         if(request()->wantsJson()) {
             return $tasks->toArray();

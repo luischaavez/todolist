@@ -13,6 +13,11 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeOf($query, $user)
+    {
+        return $query->where("user_id", $user->id);
+    }
+
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);

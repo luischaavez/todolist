@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Task;
+use App\{ Task, User };
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -13,13 +13,24 @@ class FilterTasksTest extends TestCase
     /** @test */
     public function completed_task_can_be_filtered()
     {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+
         $completedTasks = factory(Task::class)->times(3)
-            ->create(["completed" => true]);
+            ->create([
+                "user_id" => $user->id,
+                "completed" => true
+            ]);
 
         $incompleteTasks = factory(Task::class)->times(2)
-            ->create(["completed" => false]);
+            ->create([
+                "user_id" => $user->id,
+                "completed" => false
+            ]);
 
-        $this->json("GET", "/tasks?completed=true")
+        $this->actingAs($user)
+            ->json("GET", "/tasks?completed=true")
             ->assertStatus(200)
             ->assertJson($completedTasks->toArray())
             ->assertJsonMissing($incompleteTasks->toArray());
