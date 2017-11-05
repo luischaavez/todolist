@@ -7,13 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Dashboard</div>
 
-                    <div class="panel-body">
-                        <ul>
-                            @foreach($tasks as $task)
-                                <li>{{ $task->task }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    <tasks></tasks>
                 </div>
             </div>
         </div>

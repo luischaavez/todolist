@@ -16,12 +16,13 @@ class ShowTasksTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $tasks = factory(Task::class)->times(2)->create([
+        $task = factory(Task::class)->create([
             "user_id" => $user->id
         ]);
 
         $this->actingAs($user)
-            ->json("GET", route("tasks.index"))
-            ->assertJson($tasks->toArray());
+            ->get(route("tasks.index"))
+            ->assertStatus(200)
+            ->assertSee($task->task);
     }
 }
