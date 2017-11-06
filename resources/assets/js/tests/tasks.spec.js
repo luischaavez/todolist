@@ -13,6 +13,13 @@ describe('Tasks', () => {
 		expect(wrapper.contains("ul")).toBe(false);
 	});
 
+	it.only('fetch the list of tasks from the server', () => {
+		//console.log(wrapper.vm);
+		expect(wrapper.vm._isMounted).toBe(true);
+
+		expect(wrapper.vm.tasks).toNotBe(null);
+	});
+
 	it('allows to add a new task', () => {
 		var input = wrapper.find(".task");
 
