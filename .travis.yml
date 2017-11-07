@@ -6,7 +6,7 @@ php:
  - 7.1
 
 before_script:
-  - cp .env .env.example
+  - cp .env.travis .env
   - mysql -e 'create database todolist_tests;'
   - composer install --prefer-source --no-interaction
 
