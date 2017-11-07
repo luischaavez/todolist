@@ -8,6 +8,7 @@ before_script:
   - cp .env.travis .env
   - mysql -e 'create database todolist_tests;'
   - composer install --prefer-source --no-interaction
+  - php artisan key:generate
   - php artisan migrate:refresh
 
 script:
