@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<ul v-if="tasks.length" v-for="task in tasks">
+		<ul v-for="task in tasks" :key="task.id">
 			<li>{{ task.task }}</li>
 		</ul>
 
@@ -9,7 +9,9 @@
 </template>
 
 <script>
-	import AddTask from './AddTask.vue'
+	import axios from 'axios';
+	import AddTask from './AddTask.vue';
+
 	export default {
 		components: { AddTask },
 
@@ -20,17 +22,18 @@
 		},
 
 		created(){
-			axios.get(`${location.pathname}`).then(this.refresh);
+			axios.get('/tasks').then(this.refresh);
 		},
 
 		methods: {
 			refresh({data}) {
                 this.tasks = data;
-            
-                window.scrollTo(0, 0);
             },
 			push(task) {
-				return this.tasks.push(task);
+				axios.post('/tasks/create', task)
+					.then(({data}) => {
+						this.tasks.push(data);
+					});
 			}
 		}
 	}

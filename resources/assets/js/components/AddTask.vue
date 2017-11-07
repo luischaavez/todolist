@@ -14,7 +14,9 @@
 		},
 		methods: {
 			add() {
-				this.$emit('created', { body: this.newTask, completed: false});
+				this.$emit('created', { task: this.newTask, completed: false});
+
+				this.newTask = "";
 			}
 		}
 	}
