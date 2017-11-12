@@ -28,3 +28,13 @@ Route::post("tasks/create", [
    "uses" => "TaskController@store",
    "as"   => "tasks.store"
 ]);
+
+Route::patch("tasks/{task}/complete", [
+    "uses" => "CompleteTaskController@store",
+    "as"   => "tasks.complete.store"
+]);
+
+Route::patch("tasks/{task}/incomplete", [
+    "uses" => "CompleteTaskController@destroy",
+    "as"   => "tasks.complete.destroy"
+]);

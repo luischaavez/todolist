@@ -15,6 +15,20 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function markAsComplete()
+    {
+        return $this->update([
+            "completed" => true
+        ]);
+    }
+
+    public function markAsIncomplete()
+    {
+        return $this->update([
+            "completed" => false
+        ]);
+    }
+
     public function scopeOf($query, $user)
     {
         return $query->where("user_id", $user->id);
