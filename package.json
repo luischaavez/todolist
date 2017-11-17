@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "axios": "^0.16.2",
-    "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.0.1",
     "expect": "^21.2.1",
     "jquery": "^3.1.1",
@@ -24,6 +23,7 @@
     "mocha": "^4.0.1",
     "mocha-webpack": "^0.7.0",
     "moxios": "^0.4.0",
+    "tailwindcss": "^0.1.6",
     "vue": "^2.1.10",
     "vue-test-utils": "^1.0.0-beta.3"
   }
