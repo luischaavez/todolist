@@ -2,8 +2,11 @@
 	<div>
 		<div class="text-black font-bold text-2xl my-4 text-left ml-4">Dashboard</div>
 
-		<ul v-for="task in tasks" :key="task.id" class="list-reset">
-			<li class="ml-6 p-2 text-base">{{ task.task }}</li>
+		<ul v-for="(task, index) in tasks" :key="task.id" class="list-reset">
+			<li class="ml-6 p-2 text-base">
+				<input type="checkbox" class="complete" @click="complete(task, index)">
+				{{ task.task }}
+			</li>
 		</ul>
 
 		<div class="w-full">
@@ -38,6 +41,11 @@
 					.then(({data}) => {
 						this.tasks.push(data);
 					});
+			},
+			complete(task, index) {
+			    axios.patch('/tasks/' + task.id + '/complete').then(() =>{
+			        this.tasks.splice(index, 1);
+				});
 			}
 		}
 	}

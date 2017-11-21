@@ -38,4 +38,28 @@ describe('Tasks', () => {
 		});
 
 	});
+
+	it.only('can complete any task', (done) => {
+		wrapper.setData({
+			tasks: [
+				{ id: 1, task: 'Go to the store', completed: false},
+                { id: 2, task: 'Finish test', completed: false}
+			],
+		});
+
+		moxios.stubRequest('/tasks/1/complete', {
+			status: 200,
+			response: {
+
+			}
+		});
+
+        wrapper.find('ul > li:first-child .complete').trigger('click');
+
+        moxios.wait(() => {
+			expect(wrapper.find('ul').html()).not.toContain('Go to the store');
+
+			done();
+		});
+	});
 });

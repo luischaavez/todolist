@@ -40305,6 +40305,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -40335,6 +40338,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				var data = _ref2.data;
 
 				_this.tasks.push(data);
+			});
+		},
+		complete: function complete(task, index) {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.patch('/tasks/' + task.id + '/complete').then(function () {
+				_this2.tasks.splice(index, 1);
 			});
 		}
 	}
@@ -40488,10 +40498,19 @@ var render = function() {
         [_vm._v("Dashboard")]
       ),
       _vm._v(" "),
-      _vm._l(_vm.tasks, function(task) {
+      _vm._l(_vm.tasks, function(task, index) {
         return _c("ul", { key: task.id, staticClass: "list-reset" }, [
           _c("li", { staticClass: "ml-6 p-2 text-base" }, [
-            _vm._v(_vm._s(task.task))
+            _c("input", {
+              staticClass: "complete",
+              attrs: { type: "checkbox" },
+              on: {
+                click: function($event) {
+                  _vm.complete(task, index)
+                }
+              }
+            }),
+            _vm._v("\n\t\t\t" + _vm._s(task.task) + "\n\t\t")
           ])
         ])
       }),
