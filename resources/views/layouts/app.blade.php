@@ -21,11 +21,11 @@
                 <span class="fa fa-check-circle-o text-white"></span>
                 <span class="font-bold text-white text-lg">TodoList</span>
             </div>
-            <div class="flex justify-around md:w-1/4 font-sans">
-                <a href="{{ route("login") }}" class="text-white font-semibold capitalize no-underline border rounded border-white p-2">
+            <div class="flex justify-around md:w-1/4 font-sans lg:px-6">
+                <a href="{{ route("login") }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
                     Login
                 </a>
-                <a href="{{ route("register") }}" class="text-white font-semibold capitalize no-underline border rounded border-white p-2">
+                <a href="{{ route("register") }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
                     Register
                 </a>
             </div>

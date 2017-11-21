@@ -3592,6 +3592,19 @@ button,
   * @import "utilities/skew-transforms";
   */
 
+.btn-teal-dark {
+  color: #ffffff;
+  border: 1px solid #dae4e9;
+  border-radius: .25rem;
+  border-color: #ffffff;
+  background-color: #38a89d;
+}
+
+.btn-teal-dark:hover {
+  background-color: #ffffff;
+  color: #38a89d;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

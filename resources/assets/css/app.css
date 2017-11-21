@@ -55,3 +55,11 @@
   * @import "utilities/background-patterns";
   * @import "utilities/skew-transforms";
   */
+
+.btn-teal-dark {
+  @apply .text-white .border .rounded .border-white .bg-teal-dark;
+}
+
+.btn-teal-dark:hover{
+  @apply .bg-white .text-teal-dark;
+}
