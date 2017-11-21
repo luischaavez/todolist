@@ -9,7 +9,7 @@
                     <p class="text-grey-darker text-base mb-2">
                         TodoList is the perfect app for those who forget their daily activities.
                     </p>
-                    <a href="{{ route("register") }}" class="no-underline">
+                    <a href="{{ route('register') }}" class="no-underline">
                         <button class="btn-teal-dark hover:border-teal-dark font-bold p-3 mt-1 uppercase">Get started</button>
                     </a>
                 </div>

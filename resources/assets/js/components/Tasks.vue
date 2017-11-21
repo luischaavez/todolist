@@ -1,10 +1,14 @@
 <template>
 	<div>
-		<ul v-for="task in tasks" :key="task.id">
-			<li>{{ task.task }}</li>
+		<div class="text-black font-bold text-2xl my-4 text-left ml-4">Dashboard</div>
+
+		<ul v-for="task in tasks" :key="task.id" class="list-reset">
+			<li class="ml-6 p-2 text-base">{{ task.task }}</li>
 		</ul>
 
-		<add-task @created="push"></add-task>
+		<div class="w-full">
+			<add-task @created="push"></add-task>
+		</div>
 	</div>
 </template>
 

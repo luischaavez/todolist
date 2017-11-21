@@ -1,77 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+<div class="flex justify-center items-center h-screen">
+    <div class="w-full max-w-sm items-center">
+        <div class="text-black font-bold text-lg mb-2 text-center">Register</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+        <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="{{ route('register') }}">
+            {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+            <div class="mb-4">
+                <label for="name" class="block text-grey-darker text-sm font-semibold mb-2">Name</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                <input id="name" type="text" name="name" value="{{ old('name') }}"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker {{ $errors->has('name') ? 'border-red' : '' }}" autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                @if ($errors->has('name'))
+                    <p class="text-red text-xs font-bold pt-1">{{ $errors->first('name') }}</p>
+                @endif
             </div>
-        </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-grey-darker text-sm font-semibold mb-2">E-Mail Address</label>
+
+                <input id="email" type="email" name="email" value="{{ old('email') }}"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker {{ $errors->has('email') ? 'border-red' : '' }}">
+
+                @if ($errors->has('email'))
+                    <p class="text-red text-xs font-bold pt-1">{{ $errors->first('email') }}</p>
+                @endif
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-grey-darker text-sm font-semibold mb-2">Password</label>
+
+                <input id="password" type="password" name="password"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker {{ $errors->has('password') ? 'border-red' : '' }}">
+
+                @if ($errors->has('password'))
+                    <p class="text-red text-xs font-bold pt-1">{{ $errors->first('password') }}</p>
+                @endif
+            </div>
+
+            <div class="mb-6">
+                <label for="password-confirm" class="block text-grey-darker text-sm font-semibold mb-2">Confirm Password</label>
+
+                <input id="password-confirm" type="password" name="password_confirmation"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white">
+                    Register
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

@@ -18,14 +18,16 @@
     <div id="app">
         <nav class="flex p-5 justify-between bg-teal-dark p-4">
             <div class="md:w-3/4 p-2">
-                <span class="fa fa-check-circle-o text-white"></span>
-                <span class="font-bold text-white text-lg">TodoList</span>
+                <a href="{{ url("/") }}" class="no-underline">
+                    <span class="fa fa-check-circle-o text-white"></span>
+                    <span class="font-bold text-white text-lg">TodoList</span>
+                </a>
             </div>
             <div class="flex justify-around md:w-1/4 font-sans lg:px-6">
-                <a href="{{ route("login") }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
+                <a href="{{ route('login') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
                     Login
                 </a>
-                <a href="{{ route("register") }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
+                <a href="{{ route('register') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
                     Register
                 </a>
             </div>

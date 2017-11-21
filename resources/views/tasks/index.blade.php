@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
-
-                    <tasks></tasks>
-                </div>
+    <div class="flex justify-center h-screen pt-8 bg-grey-lighter">
+        <div class="w-full max-w-xl flex flex-wrap">
+            <div class="md:w-1/3 bg-grey-lighter">
+                <ul>
+                    <li>Today</li>
+                    <li>Week</li>
+                    <li>Month</li>
+                </ul>
+            </div>
+            <div class="md:w-2/3 bg-white h-auto border-white rounded">
+                <tasks></tasks>
             </div>
         </div>
     </div>

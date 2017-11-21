@@ -40301,6 +40301,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -40422,7 +40426,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "mx-3 flex items-center" }, [
     _c("textarea", {
       directives: [
         {
@@ -40432,7 +40436,8 @@ var render = function() {
           expression: "newTask"
         }
       ],
-      staticClass: "task",
+      staticClass:
+        "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker task resize-none max-w-sm mr-2",
       attrs: { name: "task" },
       domProps: { value: _vm.newTask },
       on: {
@@ -40445,9 +40450,15 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c("button", { staticClass: "add-task", on: { click: _vm.add } }, [
-      _vm._v("Add")
-    ])
+    _c(
+      "button",
+      {
+        staticClass:
+          "text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white add-task",
+        on: { click: _vm.add }
+      },
+      [_vm._v("Add")]
+    )
   ])
 }
 var staticRenderFns = []
@@ -40471,13 +40482,26 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        { staticClass: "text-black font-bold text-2xl my-4 text-left ml-4" },
+        [_vm._v("Dashboard")]
+      ),
+      _vm._v(" "),
       _vm._l(_vm.tasks, function(task) {
-        return _c("ul", { key: task.id }, [
-          _c("li", [_vm._v(_vm._s(task.task))])
+        return _c("ul", { key: task.id, staticClass: "list-reset" }, [
+          _c("li", { staticClass: "ml-6 p-2 text-base" }, [
+            _vm._v(_vm._s(task.task))
+          ])
         ])
       }),
       _vm._v(" "),
-      _c("add-task", { on: { created: _vm.push } })
+      _c(
+        "div",
+        { staticClass: "w-full" },
+        [_c("add-task", { on: { created: _vm.push } })],
+        1
+      )
     ],
     2
   )
