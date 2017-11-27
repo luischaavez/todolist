@@ -40308,6 +40308,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -40411,10 +40413,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			show: false,
 			newTask: ""
 		};
 	},
@@ -40424,6 +40431,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.$emit('created', { task: this.newTask, completed: false });
 
 			this.newTask = "";
+		},
+		display: function display() {
+			this.show = true;
 		}
 	}
 });
@@ -40436,40 +40446,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mx-3 flex items-center" }, [
-    _c("textarea", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.newTask,
-          expression: "newTask"
-        }
-      ],
-      staticClass:
-        "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker task resize-none max-w-sm mr-2",
-      attrs: { name: "task" },
-      domProps: { value: _vm.newTask },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+  return _vm.show
+    ? _c("div", { staticClass: "mx-3 flex items-center add-container" }, [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.newTask,
+              expression: "newTask"
+            }
+          ],
+          staticClass:
+            "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker task resize-none max-w-sm mr-2",
+          attrs: { name: "task" },
+          domProps: { value: _vm.newTask },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.newTask = $event.target.value
+            }
           }
-          _vm.newTask = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white add-task",
-        on: { click: _vm.add }
-      },
-      [_vm._v("Add")]
-    )
-  ])
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white add-task",
+            on: { click: _vm.add }
+          },
+          [_vm._v("Add")]
+        )
+      ])
+    : _c("div", { staticClass: "text-left pl-3 cursor-pointer" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "text-teal text-sm show-container cursor-pointer hover:underline",
+            on: { click: _vm.display }
+          },
+          [_c("span", { staticClass: "fa fa-plus" }), _vm._v(" Add Task")]
+        )
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40500,18 +40522,29 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.tasks, function(task, index) {
         return _c("ul", { key: task.id, staticClass: "list-reset" }, [
-          _c("li", { staticClass: "ml-6 p-2 text-base" }, [
-            _c("input", {
-              staticClass: "complete",
-              attrs: { type: "checkbox" },
-              on: {
-                click: function($event) {
-                  _vm.complete(task, index)
-                }
-              }
-            }),
-            _vm._v("\n\t\t\t" + _vm._s(task.task) + "\n\t\t")
-          ])
+          _c(
+            "li",
+            {
+              staticClass: "ml-4 py-3 text-base border-b border-grey-light mb-4"
+            },
+            [
+              _c("div", { staticClass: "flex w-full" }, [
+                _c("input", {
+                  staticClass: "complete",
+                  attrs: { type: "checkbox" },
+                  on: {
+                    click: function($event) {
+                      _vm.complete(task, index)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-grey pl-2" }, [
+                  _vm._v(_vm._s(task.task))
+                ])
+              ])
+            ]
+          )
         ])
       }),
       _vm._v(" "),

@@ -3,9 +3,11 @@
 		<div class="text-black font-bold text-2xl my-4 text-left ml-4">Dashboard</div>
 
 		<ul v-for="(task, index) in tasks" :key="task.id" class="list-reset">
-			<li class="ml-6 p-2 text-base">
-				<input type="checkbox" class="complete" @click="complete(task, index)">
-				{{ task.task }}
+			<li class="ml-4 py-3 text-base border-b border-grey-light mb-4">
+				<div class="flex w-full">
+					<input type="checkbox" class="complete" @click="complete(task, index)">
+					<p class="text-grey pl-2">{{ task.task }}</p>
+				</div>
 			</li>
 		</ul>
 

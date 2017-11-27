@@ -39,7 +39,7 @@ describe('Tasks', () => {
 
 	});
 
-	it.only('can complete any task', (done) => {
+	it('can complete any task', (done) => {
 		wrapper.setData({
 			tasks: [
 				{ id: 1, task: 'Go to the store', completed: false},

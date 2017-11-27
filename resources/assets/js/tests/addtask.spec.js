@@ -17,6 +17,16 @@ describe("AddTask", () => {
         moxios.uninstall();
     });
 
+    it('hides the text area by default', () => {
+       expect(wrapper.contains('.add-container')).toBe(false);
+    });
+
+    it.only('shows text area if we click the link', () => {
+       wrapper.find('.show-container').trigger("click");
+
+        expect(wrapper.contains('.add-container')).toBe(true);
+    });
+
     it('allows to add a new one', (done) => {
         var input = wrapper.find(".task");
 
