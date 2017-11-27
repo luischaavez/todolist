@@ -95,16 +95,9 @@ class FilterTasksTest extends TestCase
             "created_at" => Carbon::now()->subWeek()
         ]);
 
-        $taskOfToday = factory(Task::class)->create([
+        $weekTasks = factory(Task::class)->times(2)->create([
             "user_id" => $user->id
         ]);
-        
-        $taskOfYesterday = factory(Task::class)->create([
-            "user_id" => $user->id,
-            "created_at" => Carbon::now()->subDay()
-        ]);
-
-        $weekTasks = collect([$taskOfToday->toArray(), $taskOfYesterday->toArray()]);
 
         $this->actingAs($user)
             ->json("GET", "/tasks?week=1")
