@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="flex p-5 justify-between bg-teal-dark p-4">
+        <nav class="flex fixed w-full overflow-hidden p-5 justify-between bg-teal-dark p-4">
             <div class="md:w-3/4 p-2">
                 <a href="{{ url("/") }}" class="no-underline">
                     <span class="fa fa-check-circle-o text-white"></span>

@@ -49,7 +49,7 @@
             </div>
 
             <div class="flex justify-center">
-                <button type="submit" class="text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white">
+                <button class="text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white">
                     Register
                 </button>
             </div>
