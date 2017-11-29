@@ -40417,6 +40417,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -40447,39 +40455,57 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.show
-    ? _c("div", { staticClass: "mx-3 flex items-center add-container" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.newTask,
-              expression: "newTask"
-            }
-          ],
-          staticClass:
-            "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker task resize-none max-w-sm mr-2",
-          attrs: { name: "task" },
-          domProps: { value: _vm.newTask },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+    ? _c("div", { staticClass: "mx-3 flex flex-col add-container" }, [
+        _c("div", { staticClass: "w-full" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newTask,
+                expression: "newTask"
               }
-              _vm.newTask = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
+            ],
             staticClass:
-              "text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white add-task",
-            on: { click: _vm.add }
-          },
-          [_vm._v("Add")]
-        )
+              "shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2",
+            attrs: { name: "task", rows: "3" },
+            domProps: { value: _vm.newTask },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newTask = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: " ml-2 mt-2 max-w-sm" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "text-teal-dark text-sm font-bold bg-white border rounded border-teal-dark py-1 px-4 hover:bg-teal-dark hover:text-white add-task",
+              on: { click: _vm.add }
+            },
+            [_vm._v("\n\t\t\tAdd\n\t\t")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "text-red-light text-sm py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white",
+              on: {
+                click: function($event) {
+                  _vm.show = false
+                }
+              }
+            },
+            [_vm._v("Cancel")]
+          )
+        ])
       ])
     : _c("div", { staticClass: "text-left pl-3 cursor-pointer" }, [
         _c(

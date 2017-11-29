@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="h-screen flex justify-center items-center">
+    <div class="h-screen flex justify-center items-center hideout-svg">
         <div class="max-w-md lg:flex h-auto">
             <div class="border-r border-b border-l border-grey-light lg:border-t lg:border-grey-light bg-white rounded rounded-b lg:rounded lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                 <div class="p-2 text-center">

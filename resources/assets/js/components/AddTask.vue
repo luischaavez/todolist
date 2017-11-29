@@ -1,7 +1,17 @@
 <template>
-	<div v-if="show" class="mx-3 flex items-center add-container">
-		<textarea name="task" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker task resize-none max-w-sm mr-2" v-model="newTask"></textarea>
-		<button class="text-teal-dark font-bold bg-white border rounded border-teal-dark p-2 hover:bg-teal-dark hover:text-white add-task" @click="add">Add</button>
+	<div v-if="adding" class="mx-3 flex flex-col add-container">
+		<div class="w-full">
+			<textarea name="task" class="shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2" rows="3" v-model="newTask"></textarea>
+		</div>
+
+		<div class=" ml-2 mt-2 max-w-sm">
+			<button class="text-teal-dark text-sm font-bold bg-white border rounded border-teal-dark py-1 px-4 hover:bg-teal-dark hover:text-white add-task" @click="add">
+				Add
+			</button>
+			<button class="text-red-light text-sm py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white" @click="adding = false">
+				Cancel
+			</button>
+		</div>
 	</div>
 
 	<div v-else  class="text-left pl-3 cursor-pointer">
@@ -13,7 +23,7 @@
 	export default {
 		data() {
 			return {
-			    show: false,
+			    adding: false,
 				newTask: "",
 			}
 		},
@@ -25,7 +35,7 @@
 			},
 
 			display() {
-			    this.show = true;
+			    this.adding = true;
 			}
 		}
 	}

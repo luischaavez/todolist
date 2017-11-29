@@ -21,13 +21,15 @@ describe("AddTask", () => {
        expect(wrapper.contains('.add-container')).toBe(false);
     });
 
-    it.only('shows text area if we click the link', () => {
+    it('shows text area if we click the link', () => {
        wrapper.find('.show-container').trigger("click");
 
         expect(wrapper.contains('.add-container')).toBe(true);
     });
 
     it('allows to add a new one', (done) => {
+        wrapper.find('.show-container').trigger("click");
+
         var input = wrapper.find(".task");
 
         input.element.value = "New task";
@@ -51,6 +53,8 @@ describe("AddTask", () => {
     });
 
     it("cleans the input after add new one", () => {
+        wrapper.find('.show-container').trigger("click");
+
         var input = wrapper.find(".task");
 
         input.element.value = "New task";

@@ -16,14 +16,14 @@
 </head>
 <body>
     <div id="app">
-        <nav class="flex fixed w-full overflow-hidden p-5 justify-between bg-teal-dark p-4">
-            <div class="md:w-3/4 p-2">
+        <nav class="flex fixed w-full justify-between bg-teal-dark p-2">
+            <div class="md:w-5/6 p-2">
                 <a href="{{ url("/") }}" class="no-underline">
-                    <span class="fa fa-check-circle-o text-white"></span>
-                    <span class="font-bold text-white text-lg">TodoList</span>
+                    <span class="fa fa-list text-white"></span>
+                    <span class="font-bold text-white text-xl">TodoList</span>
                 </a>
             </div>
-            <div class="flex justify-around md:w-1/4 font-sans lg:px-6">
+            <div class="flex justify-around md:w-1/6 font-sans lg:px-6">
                 <a href="{{ route('login') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
                     Login
                 </a>
