@@ -38,3 +38,8 @@ Route::patch("tasks/{task}/incomplete", [
     "uses" => "CompleteTaskController@destroy",
     "as"   => "tasks.complete.destroy"
 ]);
+
+Route::post("projects", [
+   "uses" => "ProjectsController@store",
+   "as"   => "projects.store"
+]);

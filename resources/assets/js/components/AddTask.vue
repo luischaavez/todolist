@@ -8,7 +8,7 @@
 			<button class="text-teal-dark text-sm font-bold bg-white border rounded border-teal-dark py-1 px-4 hover:bg-teal-dark hover:text-white add-task" @click="add">
 				Add
 			</button>
-			<button class="text-red-light text-sm py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white" @click="adding = false">
+			<button class="text-red-light text-sm font-bold py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white" @click="adding = false">
 				Cancel
 			</button>
 		</div>
