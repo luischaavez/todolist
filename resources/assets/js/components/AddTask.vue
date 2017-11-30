@@ -1,7 +1,8 @@
 <template>
 	<div v-if="adding" class="mx-3 flex flex-col add-container">
 		<div class="w-full">
-			<textarea name="task" class="shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2" rows="3" v-model="newTask"></textarea>
+			<textarea ref="task" name="task" v-model="newTask" @keydown.enter.prevent="add"
+					  class="shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2" rows="3"  autofocus></textarea>
 		</div>
 
 		<div class=" ml-2 mt-2 max-w-sm">
@@ -32,11 +33,19 @@
 				this.$emit('created', { task: this.newTask, completed: false});
 
 				this.newTask = "";
+
+				this.setFocus()
 			},
 
 			display() {
 			    this.adding = true;
-			}
+
+			    this.$nextTick().then(this.setFocus);
+			},
+
+            setFocus() {
+                this.$refs.task.focus();
+            },
 		}
 	}
 </script>

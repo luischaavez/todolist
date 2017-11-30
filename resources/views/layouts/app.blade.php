@@ -24,12 +24,24 @@
                 </a>
             </div>
             <div class="flex justify-around md:w-1/6 font-sans lg:px-6">
-                <a href="{{ route('login') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
-                    Login
-                </a>
-                <a href="{{ route('register') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
-                    Register
-                </a>
+                @guest
+                    <a href="{{ route('login') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2">
+                        Register
+                    </a>
+                @else
+                    <a href="{{ route('logout') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                @endguest
             </div>
         </nav>
         @yield('content')

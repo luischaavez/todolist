@@ -6,7 +6,7 @@
 			<li class="ml-4 py-3 text-base border-b border-grey-light mb-4">
 				<div class="flex w-full">
 					<input type="checkbox" class="complete" @click="complete(task, index)">
-					<p class="text-grey pl-2">{{ task.task }}</p>
+					<p class="text-sm pl-2">{{ task.task }}</p>
 				</div>
 			</li>
 		</ul>

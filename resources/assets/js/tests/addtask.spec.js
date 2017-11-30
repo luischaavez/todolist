@@ -52,6 +52,31 @@ describe("AddTask", () => {
         });
     });
 
+    it.only('allow to add new task by type enter key', () => {
+        wrapper.find('.show-container').trigger("click");
+
+        var input = wrapper.find(".task");
+
+        input.element.value = "I can add a new task by press enter!";
+        input.trigger("input");
+
+        input.trigger("keydown.enter");
+
+        moxios.stubRequest('/tasks/create', {
+            status: 200,
+            response: {
+                task: "New task",
+                completed: false
+            }
+        });
+
+        moxios.wait(() => {
+            expect(wrapper.find("ul").text()).toContain("I can add a new task by press enter!");
+
+            done();
+        });
+    });
+
     it("cleans the input after add new one", () => {
         wrapper.find('.show-container').trigger("click");
 

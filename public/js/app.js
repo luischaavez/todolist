@@ -40425,11 +40425,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			show: false,
+			adding: false,
 			newTask: ""
 		};
 	},
@@ -40439,9 +40442,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.$emit('created', { task: this.newTask, completed: false });
 
 			this.newTask = "";
+
+			this.setFocus();
 		},
 		display: function display() {
-			this.show = true;
+			this.adding = true;
+
+			this.$nextTick().then(this.setFocus);
+		},
+		setFocus: function setFocus() {
+			this.$refs.task.focus();
 		}
 	}
 });
@@ -40454,7 +40464,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.show
+  return _vm.adding
     ? _c("div", { staticClass: "mx-3 flex flex-col add-container" }, [
         _c("div", { staticClass: "w-full" }, [
           _c("textarea", {
@@ -40466,11 +40476,22 @@ var render = function() {
                 expression: "newTask"
               }
             ],
+            ref: "task",
             staticClass:
               "shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2",
-            attrs: { name: "task", rows: "3" },
+            attrs: { name: "task", rows: "3", autofocus: "" },
             domProps: { value: _vm.newTask },
             on: {
+              keydown: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key)
+                ) {
+                  return null
+                }
+                $event.preventDefault()
+                _vm.add($event)
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -40496,14 +40517,14 @@ var render = function() {
             "button",
             {
               staticClass:
-                "text-red-light text-sm py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white",
+                "text-red-light text-sm font-bold py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white",
               on: {
                 click: function($event) {
-                  _vm.show = false
+                  _vm.adding = false
                 }
               }
             },
-            [_vm._v("Cancel")]
+            [_vm._v("\n\t\t\tCancel\n\t\t")]
           )
         ])
       ])
@@ -40565,7 +40586,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-grey pl-2" }, [
+                _c("p", { staticClass: "text-sm pl-2" }, [
                   _vm._v(_vm._s(task.task))
                 ])
               ])
