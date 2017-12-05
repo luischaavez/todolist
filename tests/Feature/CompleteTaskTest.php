@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\Task;
 use Tests\TestCase;
+use App\{ Task, User };
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CompleteTaskTest extends TestCase
@@ -16,11 +15,11 @@ class CompleteTaskTest extends TestCase
     {
         $user = factory(User::class)->create();
         $task = factory(Task::class)
-            ->create(["user_id" => $user->id]);
+            ->create(['user_id' => $user->id]);
 
         $this->assertFalse($task->completed);
 
-        $this->json("PATCH", route("tasks.complete.store", $task));    
+        $this->json('PATCH', route('tasks.complete.store', $task));
 
         $this->assertTrue($task->fresh()->completed);
     }
@@ -30,13 +29,13 @@ class CompleteTaskTest extends TestCase
     {
         $user = factory(User::class)->create();
         $task = factory(Task::class)->create([
-            "user_id" => $user->id,
-            "completed" => true
+            'user_id' => $user->id,
+            'completed' => true
         ]);
 
         $this->assertTrue($task->completed);
 
-        $this->json("PATCH", route("tasks.complete.destroy", $task));    
+        $this->json('PATCH', route('tasks.complete.destroy', $task));
 
         $this->assertFalse($task->fresh()->completed);
     }

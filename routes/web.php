@@ -20,22 +20,22 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get("/tasks", [
-    "uses" => "TaskController@index",
+    "uses" => "TasksController@index",
     "as"   => "tasks.index"
 ]);
 
 Route::post("tasks/create", [
-   "uses" => "TaskController@store",
+   "uses" => "TasksController@store",
    "as"   => "tasks.store"
 ]);
 
 Route::patch("tasks/{task}/complete", [
-    "uses" => "CompleteTaskController@store",
+    "uses" => "CompleteTasksController@store",
     "as"   => "tasks.complete.store"
 ]);
 
 Route::patch("tasks/{task}/incomplete", [
-    "uses" => "CompleteTaskController@destroy",
+    "uses" => "CompleteTasksController@destroy",
     "as"   => "tasks.complete.destroy"
 ]);
 

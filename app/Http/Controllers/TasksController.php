@@ -6,16 +6,20 @@ use App\Task;
 use Illuminate\Http\Request;
 use App\Filters\TasksFilters;
 
-class TaskController extends Controller
+class TasksController extends Controller
 {
+    /**
+     * Create a new TasksController instance.
+     */
     public function __construct()
     {
-        $this->middleware("auth");
+        $this->middleware('auth');
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param TasksFilters $filters
      * @return \App\Task
      */
     public function index(TasksFilters $filters)
@@ -26,53 +30,20 @@ class TaskController extends Controller
             return $tasks->toArray();
         }
 
-        return view("tasks.index", compact("tasks"));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Task
      */
-    public function store(Request $request)
+    public function store()
     {
         return Task::create([
-            "task"    => request()->get("task"),
-            "user_id" => auth()->id()
+            'task'    => request()->get('task'),
+            'user_id' => auth()->id()
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

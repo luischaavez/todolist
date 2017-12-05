@@ -34,7 +34,7 @@
                 @else
                     <a href="{{ route('logout') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2"
                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    document.getElementById('logout-form').submit();">
                         Logout
                     </a>
 

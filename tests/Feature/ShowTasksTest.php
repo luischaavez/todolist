@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Task;
-use App\User;
 use Tests\TestCase;
+use App\{ Task, User };
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ShowTasksTest extends TestCase
@@ -16,12 +15,13 @@ class ShowTasksTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $tasks = factory(Task::class)->times(2)->create([
-            "user_id" => $user->id
-        ]);
+        $tasks = factory(Task::class)->times(2)
+            ->create([
+                'user_id' => $user->id
+            ]);
 
         $this->actingAs($user)
-            ->json("GET", route("tasks.index"))
+            ->json('GET', route('tasks.index'))
             ->assertStatus(200)
             ->assertJson($tasks->toArray());
     }
