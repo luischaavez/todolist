@@ -15,6 +15,13 @@
                         <span class="fa fa-calendar mr-2"></span> Month
                     </li>
                 </ul>
+
+               <div class="pt-4">
+                   <div class="text-black font-bold text-md text-left ml-2 mb-4">Projects</div>
+
+                   <projects></projects>
+               </div>
+
             </div>
             <div class="md:w-3/4 bg-white h-full border-gray rounded px-4">
                 <tasks></tasks>
