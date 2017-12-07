@@ -18,24 +18,45 @@ describe("AddTask", () => {
     });
 
     it('hides the text area by default', () => {
-       expect(wrapper.contains('.add-container')).toBe(false);
+       notExists('.add-container');
     });
 
     it('shows text area if we click the link', () => {
-       wrapper.find('.show-container').trigger("click");
+       click('.show-container');
 
-        expect(wrapper.contains('.add-container')).toBe(true);
+        exists('.add-container');
     });
 
     it('allows to add a new one', (done) => {
-        wrapper.find('.show-container').trigger("click");
+        click('.show-container');
 
-        var input = wrapper.find(".task");
+        type('New task', '.task');
 
-        input.element.value = "New task";
-        input.trigger("input");
+        click('button.add-task');
 
-        wrapper.find("button.add-task").trigger("click");
+        moxios.stubRequest('/tasks/create', {
+            status: 200,
+            response: {
+                task: 'New task',
+                completed: false
+            }
+        });
+
+        moxios.wait(() => {
+            see('New task', 'ul');
+
+            done();
+        });
+    });
+
+    it('allow to add new task by type enter key', () => {
+        wrapper.find('.show-container').trigger('click');
+
+        var input = wrapper.find('.task');
+
+        type('I can add a new task by press enter!', '.task');
+
+        input.trigger('keydown.enter');
 
         moxios.stubRequest('/tasks/create', {
             status: 200,
@@ -46,47 +67,46 @@ describe("AddTask", () => {
         });
 
         moxios.wait(() => {
-            expect(wrapper.find("ul").text()).toContain("New task");
+            see('I can add a new task by press enter!', 'ul');
 
             done();
         });
     });
 
-    it.only('allow to add new task by type enter key', () => {
-        wrapper.find('.show-container').trigger("click");
+    it('cleans the input after add new one', () => {
+        click('.show-container');
 
-        var input = wrapper.find(".task");
+        type('New task', '.task');
 
-        input.element.value = "I can add a new task by press enter!";
-        input.trigger("input");
+        click('button.add-task');
 
-        input.trigger("keydown.enter");
-
-        moxios.stubRequest('/tasks/create', {
-            status: 200,
-            response: {
-                task: "New task",
-                completed: false
-            }
-        });
-
-        moxios.wait(() => {
-            expect(wrapper.find("ul").text()).toContain("I can add a new task by press enter!");
-
-            done();
-        });
+        expect(wrapper.find('.task').element.value).toBe("");
     });
 
-    it("cleans the input after add new one", () => {
-        wrapper.find('.show-container').trigger("click");
+    let see = (text, selector) => {
+        let wrap = selector ? wrapper.find(selector) : wrapper;
 
-        var input = wrapper.find(".task");
+        expect(wrap.text()).toContain(text);
+    };
 
-        input.element.value = "New task";
-        input.trigger("input");
+    let notExists = selector => {
+      expect(wrapper.contains(selector)).toBe(false);
+    };
 
-        wrapper.find("button.add-task").trigger("click");
+    let exists = selector => {
+      expect(wrapper.contains(selector)).toBe(true);
+    };
 
-        expect(input.element.value).toBe("");
-    });
+    let click = selector => {
+      wrapper.find(selector).trigger('click');
+    };
+
+    let type = (text, selector) => {
+        let node = wrapper.find(selector);
+
+        node.element.value = text;
+        node.trigger('input');
+
+        return node;
+    }
 });

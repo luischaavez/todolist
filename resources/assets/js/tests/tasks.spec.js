@@ -18,7 +18,7 @@ describe('Tasks', () => {
 	});
 
 	it('hides the list if there are not tasks', () => {
-		expect(wrapper.contains("ul")).toBe(false);
+		notExists('ul');
 	});
 
 	it('fetch the list of tasks from the server', (done) => {
@@ -26,13 +26,13 @@ describe('Tasks', () => {
 		moxios.stubRequest('/tasks', {
 			status: 200,
 			response: [
-				{ task: "Go to the store", completed: false},
-				{ task: "Finish screencast", completed: false},
+				{ task: 'Go to the store', completed: false},
+				{ task: 'Finish screencast', completed: false},
 			]
 		});
 
 		moxios.wait(() => {
-            expect(wrapper.find("ul").text()).toContain("Go to the store");
+            see('Go to the store', 'ul.list-reset');
 
             done();
 		});
@@ -54,12 +54,39 @@ describe('Tasks', () => {
 			}
 		});
 
-        wrapper.find('ul > li:first-child .complete').trigger('click');
+        click('ul > li:first-child .complete');
 
         moxios.wait(() => {
-			expect(wrapper.find('ul').html()).not.toContain('Go to the store');
+			expect(wrapper.find('ul.list-reset').text()).not.toContain('Go to the store');
 
 			done();
 		});
 	});
+
+	let see = (text, selector) => {
+        let wrap = selector ? wrapper.find(selector) : wrapper;
+
+        expect(wrap.text()).toContain(text);
+    };
+
+    let notExists = selector => {
+      expect(wrapper.contains(selector)).toBe(false);
+    };
+
+    let exists = selector => {
+      expect(wrapper.contains(selector)).toBe(true);
+    };
+
+    let click = selector => {
+      wrapper.find(selector).trigger('click');
+    };
+
+    let type = (text, selector) => {
+        let node = wrapper.find(selector);
+
+        node.element.value = text;
+        node.trigger('input');
+
+        return node;
+    }
 });

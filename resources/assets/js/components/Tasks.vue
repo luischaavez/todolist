@@ -38,17 +38,20 @@
 			refresh({data}) {
                 this.tasks = data;
             },
+
 			push(task) {
 				axios.post('/tasks/create', task)
 					.then(({data}) => {
 						this.tasks.push(data);
 					});
 			},
+
 			complete(task, index) {
 			    axios.patch('/tasks/' + task.id + '/complete').then(() =>{
 			        this.tasks.splice(index, 1);
 				});
 			}
+
 		}
 	}
 </script>
