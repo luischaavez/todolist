@@ -43,3 +43,8 @@ Route::post("projects", [
    "uses" => "ProjectsController@store",
    "as"   => "projects.store"
 ]);
+
+Route::delete("projects/{project}", [
+   "uses" => "ProjectsController@destroy",
+   "as"   => "projects.destroy"
+]);

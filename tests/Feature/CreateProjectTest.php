@@ -27,4 +27,19 @@ class CreateProjectTest extends TestCase
            'user_id' => $user->id
         ]);
     }
+
+    /** @test */
+    function authorized_users_can_delete_threads()
+    {
+        $user = factory(User::class)->create();
+        
+        $project = factory(Project::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->actingAs($user)
+            ->json('DELETE', route('projects.destroy', $project));
+
+        $this->assertDatabaseMissing('projects', ['id' => $project->id]);
+    }
 }

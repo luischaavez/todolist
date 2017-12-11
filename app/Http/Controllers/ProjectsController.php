@@ -17,4 +17,15 @@ class ProjectsController extends Controller
             'user_id' => auth()->id()
         ]);
     }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Project $project
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Project $project)
+    {
+        $project->delete();
+    }
 }
