@@ -40697,8 +40697,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             projects: []
         };
     },
+    created: function created() {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/projects').then(this.refresh);
+    },
+
 
     methods: {
+        refresh: function refresh(_ref) {
+            var data = _ref.data;
+
+            this.projects = data;
+        },
         store: function store(data) {
             var _this = this;
 

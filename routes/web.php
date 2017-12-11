@@ -39,6 +39,11 @@ Route::patch("tasks/{task}/incomplete", [
     "as"   => "tasks.complete.destroy"
 ]);
 
+Route::get("projects", [
+   "uses" => "ProjectsController@index",
+   "as"   => "projects"
+]);
+
 Route::post("projects", [
    "uses" => "ProjectsController@store",
    "as"   => "projects.store"

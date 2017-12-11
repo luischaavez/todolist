@@ -7,6 +7,17 @@ use App\Project;
 class ProjectsController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \App\Task
+     */
+    public function index()
+    {
+        return Project::where('user_id', auth()->id())->get();
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
      */
