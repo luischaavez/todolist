@@ -29,6 +29,11 @@ Route::post("tasks/create", [
    "as"   => "tasks.store"
 ]);
 
+Route::delete("tasks/{task}", [
+   "uses" => "TasksController@destroy",
+   "as"   => "tasks.destroy"
+]);
+
 Route::patch("tasks/{task}/complete", [
     "uses" => "CompleteTasksController@store",
     "as"   => "tasks.complete.store"

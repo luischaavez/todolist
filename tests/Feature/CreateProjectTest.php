@@ -29,7 +29,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_delete_threads()
+    function authorized_users_can_delete_projects()
     {
         $user = factory(User::class)->create();
         

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Task;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,5 +32,19 @@ class CreateTaskTest extends TestCase
     {
         $this->post(route('tasks.store'))
             ->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    function authorized_users_can_delete_tasks()
+    {
+        $user = factory(User::class)->create();
+        $task = factory(Task::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->actingAs($user)
+            ->json('DELETE', route('tasks.destroy', $task));
+
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }
 }
