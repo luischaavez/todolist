@@ -13,7 +13,9 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return Project::where('user_id', auth()->id())->get();
+        return Project::query()
+            ->where('user_id', auth()->id())
+            ->get();
     }
 
 

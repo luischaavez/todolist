@@ -2742,6 +2742,36 @@ button,
   padding: 1px;
 }
 
+.pt-3px {
+  padding-top: 3px;
+}
+
+.pr-3px {
+  padding-right: 3px;
+}
+
+.pb-3px {
+  padding-bottom: 3px;
+}
+
+.pl-3px {
+  padding-left: 3px;
+}
+
+.px-3px {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.py-3px {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.p-3px {
+  padding: 3px;
+}
+
 .mt-0 {
   margin-top: 0;
 }
@@ -5834,6 +5864,36 @@ button,
     padding: 1px;
   }
 
+  .sm\:pt-3px {
+    padding-top: 3px;
+  }
+
+  .sm\:pr-3px {
+    padding-right: 3px;
+  }
+
+  .sm\:pb-3px {
+    padding-bottom: 3px;
+  }
+
+  .sm\:pl-3px {
+    padding-left: 3px;
+  }
+
+  .sm\:px-3px {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .sm\:py-3px {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .sm\:p-3px {
+    padding: 3px;
+  }
+
   .sm\:mt-0 {
     margin-top: 0;
   }
@@ -8893,6 +8953,36 @@ button,
 
   .md\:p-px {
     padding: 1px;
+  }
+
+  .md\:pt-3px {
+    padding-top: 3px;
+  }
+
+  .md\:pr-3px {
+    padding-right: 3px;
+  }
+
+  .md\:pb-3px {
+    padding-bottom: 3px;
+  }
+
+  .md\:pl-3px {
+    padding-left: 3px;
+  }
+
+  .md\:px-3px {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .md\:py-3px {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .md\:p-3px {
+    padding: 3px;
   }
 
   .md\:mt-0 {
@@ -11956,6 +12046,36 @@ button,
     padding: 1px;
   }
 
+  .lg\:pt-3px {
+    padding-top: 3px;
+  }
+
+  .lg\:pr-3px {
+    padding-right: 3px;
+  }
+
+  .lg\:pb-3px {
+    padding-bottom: 3px;
+  }
+
+  .lg\:pl-3px {
+    padding-left: 3px;
+  }
+
+  .lg\:px-3px {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .lg\:py-3px {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .lg\:p-3px {
+    padding: 3px;
+  }
+
   .lg\:mt-0 {
     margin-top: 0;
   }
@@ -15015,6 +15135,36 @@ button,
 
   .xl\:p-px {
     padding: 1px;
+  }
+
+  .xl\:pt-3px {
+    padding-top: 3px;
+  }
+
+  .xl\:pr-3px {
+    padding-right: 3px;
+  }
+
+  .xl\:pb-3px {
+    padding-bottom: 3px;
+  }
+
+  .xl\:pl-3px {
+    padding-left: 3px;
+  }
+
+  .xl\:px-3px {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .xl\:py-3px {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .xl\:p-3px {
+    padding: 3px;
   }
 
   .xl\:mt-0 {
