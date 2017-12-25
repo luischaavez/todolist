@@ -26,7 +26,7 @@ class TasksController extends Controller
     {
         $tasks = Task::of(auth()->user())->filter($filters)->get();
 
-        if(request()->wantsJson()) {
+        if(request()->expectsJson()) {
             return $tasks->toArray();
         }
 

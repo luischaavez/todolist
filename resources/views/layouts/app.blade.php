@@ -19,7 +19,7 @@
         <nav class="flex fixed w-full justify-between bg-teal-dark p-2">
             <div class="md:w-5/6 p-2">
                 <a href="{{ url("/") }}" class="no-underline">
-                    <span class="fa fa-list text-white"></span>
+                    <span class="fa fa-tasks text-white"></span>
                     <span class="font-bold text-white text-xl">TodoList</span>
                 </a>
             </div>
