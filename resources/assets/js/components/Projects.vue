@@ -1,8 +1,8 @@
 <template>
     <div>
-        <ul v-for="project in projects" :key="project.id" class="projects-list list-reset mb-3">
-            <li class="pl-3">
-              <project @deleted="refresh" :attributes="project"></project>
+        <ul v-if="projects.length" class="projects-list list-reset mb-3">
+            <li v-for="(project, index) in projects" :key="project.id" class="pl-3 mb-3">
+              <project :attributes="project" @deleted="remove(index)"></project>
             </li>
         </ul>
 
@@ -36,8 +36,12 @@
 
             store(data) {
                 axios.post('/projects', data).then((response) => {
-                    this.projects.push(data);
+                    this.projects.push(response.data);
                 })
+            },
+
+            remove(index) {
+                this.projects.splice(index, 1);
             }
         }
     }

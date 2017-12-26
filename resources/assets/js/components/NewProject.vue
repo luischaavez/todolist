@@ -41,7 +41,7 @@
             add() {
                this.$emit('created', { name: this.name });
 
-               flash('Project created successfully!')
+               //flash('Project created successfully!')
 
                this.name = '';
             }

@@ -18,10 +18,10 @@ describe('Tasks', () => {
 	});
 
 	it('hides the list if there are not tasks', () => {
-		notExists('ul');
+		notExists('ul.tasks-list');
 	});
 
-	it('fetch the list of tasks from the server', (done) => {
+	it('fetch the list of tasks from the server', async () => {
 
 		moxios.stubRequest('/tasks', {
 			status: 200,
@@ -31,12 +31,9 @@ describe('Tasks', () => {
 			]
 		});
 
-		moxios.wait(() => {
-            see('Go to the store', 'ul.list-reset');
-
-            done();
-		});
-
+		await wrapper.vm.$nextTick();
+		
+		see('Go to the store', '.tasks-list');
 	});
 
 	it('can complete any task', (done) => {
@@ -54,10 +51,10 @@ describe('Tasks', () => {
 			}
 		});
 
-        click('ul > li:first-child .complete');
+        click('ul.tasks-list > li:first-child .complete');
 
         moxios.wait(() => {
-			expect(wrapper.find('ul.list-reset').text()).not.toContain('Go to the store');
+			expect(wrapper.find('ul.tasks-list').html()).not.toContain('Go to the store');
 
 			done();
 		});

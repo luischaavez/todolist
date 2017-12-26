@@ -8,7 +8,7 @@
 
          <div v-if="optionsBox" class="z-30 absolute shadow-md options-box bg-white w-24 text-sm border rounded" v-on-clickaway="away">
              <div class="px-2 py-1 text-center hover:bg-grey-lighter rounded-t">Edit</div>
-             <div @click="remove" class="px-2 py-1 text-center hover:bg-grey-lighter rounded-b">Remove</div>
+             <div @click="destroy" class="px-2 py-1 text-center hover:bg-grey-lighter rounded-b">Remove</div>
          </div>
     </div>
 </template>
@@ -21,16 +21,16 @@
         mixins: [clickaway],
         data() {
             return {
+                id: this.attributes.id,
                 showOptions: false,
                 optionsBox: false
             }
         },
         methods: {
-            remove() {
-                let vm = this;
+            destroy() {
+                axios.delete('/projects/' + this.id);
 
-                axios.delete('/projects/' + this.attributes.id)
-                    .then(() => { vm.$emit('deleted') });
+                this.$emit('deleted', this.id);
             },
             away() {
                 this.optionsBox = false;

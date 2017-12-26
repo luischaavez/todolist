@@ -26,7 +26,7 @@ describe('Projects', () => {
         exists('input.new-project')
     });
 
-    it.only('allows to add new one', () => {
+    it('allows to add new one', () => {
         click('a.show-container');
 
         type('Project', 'input.new-project');

@@ -21,7 +21,7 @@ describe('Projects', () => {
         notExists('ul.projects-list')
     });
 
-    it('fetch the projects list when is created', (done) => {
+    it('fetch the projects list when is created', async () => {
 
 		moxios.stubRequest('/projects', {
 			status: 200,
@@ -31,13 +31,10 @@ describe('Projects', () => {
 			]
 		});
 
-		moxios.wait(() => {
-            see('Project', 'ul.projects-list');
+        await wrapper.vm.$nextTick();
 
-            done();
-		});
+        see('Personal', 'ul.projects-list');
 
-	
     });
 
     let see = (text, selector) => {

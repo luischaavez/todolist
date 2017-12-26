@@ -2,8 +2,10 @@
 	<div>
 		<div class="text-black font-bold text-2xl my-4 text-left ml-4">Dashboard</div>
 
-		<ul v-for="(task, index) in tasks" :key="task.id" class="list-reset">
-			<li class="ml-4 py-3 text-base border-b border-grey-light mb-4">
+		<ul v-if="tasks.length" class="list-reset tasks-list">
+			<li v-for="(task, index) in tasks" :key="task.id" 
+				class="ml-4 py-3 text-base border-b border-grey-light mb-4"
+			>
 				<div class="flex w-full">
 					<input type="checkbox" class="complete" @click="complete(task, index)">
 					<p class="text-sm pl-2">{{ task.task }}</p>

@@ -40816,6 +40816,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -41064,52 +41066,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "div",
-        { staticClass: "text-black font-bold text-2xl my-4 text-left ml-4" },
-        [_vm._v("Dashboard")]
-      ),
-      _vm._v(" "),
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "text-black font-bold text-2xl my-4 text-left ml-4" },
+      [_vm._v("Dashboard")]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "list-reset" },
       _vm._l(_vm.tasks, function(task, index) {
-        return _c("ul", { key: task.id, staticClass: "list-reset" }, [
-          _c(
-            "li",
-            {
-              staticClass: "ml-4 py-3 text-base border-b border-grey-light mb-4"
-            },
-            [
-              _c("div", { staticClass: "flex w-full" }, [
-                _c("input", {
-                  staticClass: "complete",
-                  attrs: { type: "checkbox" },
-                  on: {
-                    click: function($event) {
-                      _vm.complete(task, index)
-                    }
+        return _c(
+          "li",
+          {
+            key: task.id,
+            staticClass: "ml-4 py-3 text-base border-b border-grey-light mb-4"
+          },
+          [
+            _c("div", { staticClass: "flex w-full" }, [
+              _c("input", {
+                staticClass: "complete",
+                attrs: { type: "checkbox" },
+                on: {
+                  click: function($event) {
+                    _vm.complete(task, index)
                   }
-                }),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-sm pl-2" }, [
-                  _vm._v(_vm._s(task.task))
-                ])
+                }
+              }),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-sm pl-2" }, [
+                _vm._v(_vm._s(task.task))
               ])
-            ]
-          )
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "w-full" },
-        [_c("add-task", { on: { created: _vm.push } })],
-        1
-      )
-    ],
-    2
-  )
+            ])
+          ]
+        )
+      })
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "w-full" },
+      [_c("add-task", { on: { created: _vm.push } })],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -41222,8 +41223,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/projects', data).then(function (response) {
-                _this.projects.push(data);
+                _this.projects.push(response.data);
             });
+        },
+        remove: function remove(index) {
+            this.projects.splice(index, 1);
         }
     }
 });
@@ -41541,18 +41545,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["mixin"]],
     data: function data() {
         return {
+            id: this.attributes.id,
             showOptions: false,
             optionsBox: false
         };
     },
 
     methods: {
-        remove: function remove() {
-            var vm = this;
+        destroy: function destroy() {
+            axios.delete('/projects/' + this.id);
 
-            axios.delete('/projects/' + this.attributes.id).then(function () {
-                vm.$emit('deleted');
-            });
+            this.$emit('deleted', this.id);
         },
         away: function away() {
             this.optionsBox = false;
@@ -41716,7 +41719,7 @@ var render = function() {
                 {
                   staticClass:
                     "px-2 py-1 text-center hover:bg-grey-lighter rounded-b",
-                  on: { click: _vm.remove }
+                  on: { click: _vm.destroy }
                 },
                 [_vm._v("Remove")]
               )
@@ -41747,29 +41750,31 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.projects, function(project) {
-        return _c(
-          "ul",
-          { key: project.id, staticClass: "projects-list list-reset mb-3" },
-          [
-            _c(
-              "li",
-              { staticClass: "pl-3" },
-              [
-                _c("project", {
-                  attrs: { attributes: project },
-                  on: { deleted: _vm.refresh }
-                })
-              ],
-              1
-            )
-          ]
-        )
-      }),
+      _c(
+        "ul",
+        { staticClass: "projects-list list-reset mb-3" },
+        _vm._l(_vm.projects, function(project, index) {
+          return _c(
+            "li",
+            { key: project.id, staticClass: "pl-3 mb-3" },
+            [
+              _c("project", {
+                attrs: { attributes: project },
+                on: {
+                  deleted: function($event) {
+                    _vm.remove(index)
+                  }
+                }
+              })
+            ],
+            1
+          )
+        })
+      ),
       _vm._v(" "),
       _c("new-project", { on: { created: _vm.store } })
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
