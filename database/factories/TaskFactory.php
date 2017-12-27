@@ -8,6 +8,9 @@ $factory->define(App\Task::class, function (Faker $faker) {
         "completed" => false,
         "user_id" => function() {
             return factory(App\User::class)->create()->id;
+        },
+        "project_id" => function() {
+            return null;
         }
     ];
 });

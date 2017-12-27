@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string("task");
             $table->boolean("completed")->default(false);
             $table->unsignedInteger("user_id");
+            $table->unsignedInteger("project_id")->nullable();
 
             $table->foreign("user_id")->references("id")->on("users");
 

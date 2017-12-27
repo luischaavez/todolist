@@ -40827,11 +40827,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	data: function data() {
 		return {
+			title: 'Dashboard',
 			tasks: []
 		};
 	},
 	created: function created() {
+		var _this = this;
+
 		__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/tasks').then(this.refresh);
+
+		window.events.$on('filter', function (data) {
+			return _this.applyFilter(data);
+		});
 	},
 
 
@@ -40842,19 +40849,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.tasks = data;
 		},
 		push: function push(task) {
-			var _this = this;
+			var _this2 = this;
 
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks/create', task).then(function (_ref2) {
 				var data = _ref2.data;
 
-				_this.tasks.push(data);
+				_this2.tasks.push(data);
 			});
 		},
 		complete: function complete(task, index) {
-			var _this2 = this;
+			var _this3 = this;
 
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.patch('/tasks/' + task.id + '/complete').then(function () {
-				_this2.tasks.splice(index, 1);
+				_this3.tasks.splice(index, 1);
+			});
+		},
+		applyFilter: function applyFilter(data) {
+			console.log(data);
+			var vm = this;
+			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(data.url).then(function (response) {
+				vm.title = data.title, vm.tasks = response.data;
 			});
 		}
 	}
@@ -41070,39 +41084,42 @@ var render = function() {
     _c(
       "div",
       { staticClass: "text-black font-bold text-2xl my-4 text-left ml-4" },
-      [_vm._v("Dashboard")]
+      [_vm._v(_vm._s(_vm.title))]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "list-reset" },
-      _vm._l(_vm.tasks, function(task, index) {
-        return _c(
-          "li",
-          {
-            key: task.id,
-            staticClass: "ml-4 py-3 text-base border-b border-grey-light mb-4"
-          },
-          [
-            _c("div", { staticClass: "flex w-full" }, [
-              _c("input", {
-                staticClass: "complete",
-                attrs: { type: "checkbox" },
-                on: {
-                  click: function($event) {
-                    _vm.complete(task, index)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-sm pl-2" }, [
-                _vm._v(_vm._s(task.task))
-              ])
-            ])
-          ]
+    _vm.tasks.length
+      ? _c(
+          "ul",
+          { staticClass: "list-reset tasks-list" },
+          _vm._l(_vm.tasks, function(task, index) {
+            return _c(
+              "li",
+              {
+                key: task.id,
+                staticClass:
+                  "ml-4 py-3 text-base border-b border-grey-light mb-4"
+              },
+              [
+                _c("div", { staticClass: "flex w-full" }, [
+                  _c("input", {
+                    staticClass: "complete",
+                    attrs: { type: "checkbox" },
+                    on: {
+                      click: function($event) {
+                        _vm.complete(task, index)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-sm pl-2" }, [
+                    _vm._v(_vm._s(task.task))
+                  ])
+                ])
+              ]
+            )
+          })
         )
-      })
-    ),
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -41329,7 +41346,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         add: function add() {
             this.$emit('created', { name: this.name });
 
-            flash('Project created successfully!');
+            //flash('Project created successfully!')
 
             this.name = '';
         }
@@ -41537,6 +41554,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -41559,6 +41580,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         away: function away() {
             this.optionsBox = false;
+        },
+        filter: function filter() {
+            window.events.$emit('filter', {
+                title: this.attributes.name,
+                url: window.location + '?project=' + this.id
+            });
         }
     }
 });
@@ -41659,6 +41686,7 @@ var render = function() {
     {
       staticClass: "p-1 cursor-pointer relative",
       on: {
+        click: _vm.filter,
         mouseover: function($event) {
           _vm.showOptions = true
         },
@@ -41750,27 +41778,29 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "ul",
-        { staticClass: "projects-list list-reset mb-3" },
-        _vm._l(_vm.projects, function(project, index) {
-          return _c(
-            "li",
-            { key: project.id, staticClass: "pl-3 mb-3" },
-            [
-              _c("project", {
-                attrs: { attributes: project },
-                on: {
-                  deleted: function($event) {
-                    _vm.remove(index)
-                  }
-                }
-              })
-            ],
-            1
+      _vm.projects.length
+        ? _c(
+            "ul",
+            { staticClass: "projects-list list-reset mb-3" },
+            _vm._l(_vm.projects, function(project, index) {
+              return _c(
+                "li",
+                { key: project.id, staticClass: "pl-3 mb-3" },
+                [
+                  _c("project", {
+                    attrs: { attributes: project },
+                    on: {
+                      deleted: function($event) {
+                        _vm.remove(index)
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            })
           )
-        })
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c("new-project", { on: { created: _vm.store } })
     ],

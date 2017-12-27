@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class TasksFilters extends Filters
 {
-    protected $filters = ["completed", "today", "week"];
+    protected $filters = ["completed", "today", "week", "project"];
 
     public function completed($value)
     {
@@ -22,5 +22,10 @@ class TasksFilters extends Filters
     {
         return $this->builder->whereDate("created_at", ">=", Carbon::now()->startOfWeek()->toDateString())
             ->whereDate("created_at", "<=", Carbon::now()->endOfWeek()->toDateString());
+    }
+
+    public function project($id)
+    {
+        return $this->builder->where("project_id", $id);
     }
 }

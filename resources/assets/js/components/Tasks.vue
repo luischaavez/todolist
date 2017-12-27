@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="text-black font-bold text-2xl my-4 text-left ml-4">Dashboard</div>
+		<div class="text-black font-bold text-2xl my-4 text-left ml-4">{{ title }}</div>
 
 		<ul v-if="tasks.length" class="list-reset tasks-list">
 			<li v-for="(task, index) in tasks" :key="task.id" 
@@ -28,12 +28,15 @@
 
 		data() {
 			return {
+			    title: 'Dashboard',
 				tasks: []
 			}
 		},
 
 		created(){
 			axios.get('/tasks').then(this.refresh);
+
+			window.events.$on('filter', data => this.applyFilter(data));
 		},
 
 		methods: {
@@ -52,8 +55,16 @@
 			    axios.patch('/tasks/' + task.id + '/complete').then(() =>{
 			        this.tasks.splice(index, 1);
 				});
-			}
+			},
 
+            applyFilter(data) {
+			    console.log(data);
+                let vm = this;
+                axios.get(data.url).then(response => {
+                    vm.title = data.title,
+					vm.tasks = response.data
+                });
+            }
 		}
 	}
 </script>

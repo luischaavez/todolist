@@ -1,5 +1,9 @@
 <template>
-     <div class="p-1 cursor-pointer relative" @mouseover="showOptions = true" @mouseleave="showOptions = false">
+     <div class="p-1 cursor-pointer relative"
+          @click="filter"
+          @mouseover="showOptions = true"
+          @mouseleave="showOptions = false"
+     >
         <span class="fas fa-bullseye text-sm"></span>
         {{ attributes.name }}
         <span class="text-xs float-right pr-1 pt-3px" :class="[showOptions ? 'inline' : 'hidden']" @click="optionsBox = true">
@@ -34,6 +38,13 @@
             },
             away() {
                 this.optionsBox = false;
+            },
+
+            filter() {
+                window.events.$emit('filter', {
+                   title: this.attributes.name,
+                   url: `${window.location}?project=${this.id}`
+                });
             }
         }
     }

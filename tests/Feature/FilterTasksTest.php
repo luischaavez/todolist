@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use App\{ Task, User };
+use App\{ Task, User, Project };
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FilterTasksTest extends TestCase
@@ -106,5 +106,29 @@ class FilterTasksTest extends TestCase
             ->assertStatus(200)
             ->assertExactJson($weekTasks->toArray())
             ->assertJsonMissing($tasksOfLastWeek->toArray());
+    }
+
+    /** @test */
+    function project_tasks_can_be_filtered()
+    {
+        $user = factory(User::class)->create();
+        $project = factory(Project::class)->create(['user_id' => $user->id]);
+
+        $taskWithProject = factory(Task::class)->times(3)
+            ->create([
+                'project_id' => $project->id,
+                'user_id'    => $user->id
+            ]);
+
+        $taskWithoutProject = factory(Task::class)->times(2)
+            ->create([
+                'user_id' => $user->id
+            ]);
+
+        $this->actingAs($user)
+            ->json('GET', "/tasks?project={$project->id}")
+            ->assertStatus(200)
+            ->assertExactJson($taskWithProject->toArray())
+            ->assertJsonMissing($taskWithoutProject->toArray());
     }
 }
