@@ -43,6 +43,7 @@
             filter() {
                 window.events.$emit('filter', {
                    title: this.attributes.name,
+                   project: this.attributes.id,
                    url: `${window.location}?project=${this.id}`
                 });
             }

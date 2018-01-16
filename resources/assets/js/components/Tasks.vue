@@ -29,7 +29,8 @@
 		data() {
 			return {
 			    title: 'Dashboard',
-				tasks: []
+				tasks: [],
+				project: null,
 			}
 		},
 
@@ -45,6 +46,10 @@
             },
 
 			push(task) {
+			    if(this.project) {
+			        task.project = this.project;
+				}
+
 				axios.post('/tasks/create', task)
 					.then(({data}) => {
 						this.tasks.push(data);
@@ -61,8 +66,9 @@
 			    console.log(data);
                 let vm = this;
                 axios.get(data.url).then(response => {
-                    vm.title = data.title,
-					vm.tasks = response.data
+                    vm.title = data.title;
+					vm.tasks = response.data;
+					vm.project = data.project ? data.project : null;
                 });
             }
 		}

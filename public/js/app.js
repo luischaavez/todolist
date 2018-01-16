@@ -40828,7 +40828,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			title: 'Dashboard',
-			tasks: []
+			tasks: [],
+			project: null
 		};
 	},
 	created: function created() {
@@ -40851,6 +40852,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		push: function push(task) {
 			var _this2 = this;
 
+			if (this.project) {
+				task.project = this.project;
+			}
+
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks/create', task).then(function (_ref2) {
 				var data = _ref2.data;
 
@@ -40868,7 +40873,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log(data);
 			var vm = this;
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(data.url).then(function (response) {
-				vm.title = data.title, vm.tasks = response.data;
+				vm.title = data.title;
+				vm.tasks = response.data;
+				vm.project = data.project ? data.project : null;
 			});
 		}
 	}
@@ -41584,6 +41591,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         filter: function filter() {
             window.events.$emit('filter', {
                 title: this.attributes.name,
+                project: this.attributes.id,
                 url: window.location + '?project=' + this.id
             });
         }

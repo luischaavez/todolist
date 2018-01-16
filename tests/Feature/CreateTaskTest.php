@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Project;
 use App\Task;
 use App\User;
 use Tests\TestCase;
@@ -24,6 +25,27 @@ class CreateTaskTest extends TestCase
         $this->assertDatabaseHas('tasks', [
             'task'    => 'Finish my homework',
             'user_id' => $user->id
+        ]);
+    }
+
+    /** @test */
+    function users_can_create_tasks_in_a_given_project()
+    {
+        $user = factory(User::class)->create();
+        $project = factory(Project::class)->create([
+            "user_id" => $user->id
+        ]);
+
+        $this->actingAs($user)
+            ->post(route('tasks.store'), [
+               'task'    => 'Finish project',
+               'project' => $project->id
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+           'task'       => 'Finish project',
+           'project_id' =>  $project->id,
+           'user_id'    => $user->id
         ]);
     }
 

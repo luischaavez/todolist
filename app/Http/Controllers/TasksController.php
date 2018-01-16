@@ -42,6 +42,7 @@ class TasksController extends Controller
     {
         return Task::create([
             'task'    => request()->get('task'),
+            'project_id' => request()->has('project') ? request('project') : null,
             'user_id' => auth()->id()
         ]);
     }
