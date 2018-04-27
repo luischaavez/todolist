@@ -40,6 +40,11 @@ class TasksController extends Controller
      */
     public function store()
     {
+        $validatedData = request()->validate([
+           'task' => 'required',
+           'project' => 'exists:projects,id'
+        ]);
+
         return Task::create([
             'task'    => request()->get('task'),
             'project_id' => request()->has('project') ? request('project') : null,

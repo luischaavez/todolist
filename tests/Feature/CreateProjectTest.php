@@ -11,7 +11,7 @@ class CreateProjectTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-        public function a_user_can_create_a_new_project()
+    function a_user_can_create_a_new_project()
     {
         $user = factory(User::class)->create();
 
