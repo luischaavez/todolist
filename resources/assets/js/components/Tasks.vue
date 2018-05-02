@@ -4,12 +4,9 @@
 
 		<ul v-if="tasks.length" class="list-reset tasks-list">
 			<li v-for="(task, index) in tasks" :key="task.id" 
-				class="ml-4 py-3 text-base border-b border-grey-light mb-4"
+				
 			>
-				<div class="flex w-full">
-					<input type="checkbox" class="complete" @click="complete(task, index)">
-					<p class="text-sm pl-2">{{ task.task }}</p>
-				</div>
+				<task :attributes="task" @completed="remove(index)" @deleted="remove(index)"></task>	
 			</li>
 		</ul>
 
@@ -22,9 +19,10 @@
 <script>
 	import axios from 'axios';
 	import AddTask from './AddTask.vue';
+	import Task from './Task.vue';
 
 	export default {
-		components: { AddTask },
+		components: { AddTask, Task },
 
 		data() {
 			return {
@@ -56,12 +54,6 @@
 					});
 			},
 
-			complete(task, index) {
-			    axios.patch('/tasks/' + task.id + '/complete').then(() =>{
-			        this.tasks.splice(index, 1);
-				});
-			},
-
             applyFilter(data) {
 			    console.log(data);
                 let vm = this;
@@ -70,7 +62,13 @@
 					vm.tasks = response.data;
 					vm.project = data.project ? data.project : null;
                 });
-            }
+            },
+
+			remove(index) {
+				this.tasks.splice(index, 1);
+
+				flash('Task completed')
+			}
 		}
 	}
 </script>

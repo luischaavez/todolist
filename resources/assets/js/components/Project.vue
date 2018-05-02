@@ -1,33 +1,47 @@
 <template>
-     <div class="p-1 cursor-pointer relative"
-          @click="filter"
-          @mouseover="showOptions = true"
-          @mouseleave="showOptions = false"
-     >
-        <span class="fas fa-bullseye text-sm"></span>
-        {{ attributes.name }}
-        <span class="text-xs float-right pr-1 pt-3px" :class="[showOptions ? 'inline' : 'hidden']" @click="optionsBox = true">
-            <i class="fas fa-ellipsis-v text-grey-dark hover:text-grey-darkest"></i>
-        </span>
+    <on-click-outside :do="hideOptionsBox">
+        <div class="p-1 cursor-pointer relative flex justify-between"
+            @mouseover="showOptions = true"
+            @mouseleave="showOptions = false"
+        >
+            <div @click="filter" class="">
+                <span :class="randomColor" class="text-xs fa fa-circle"></span>
+                {{ attributes.name }}
+            </div>
 
-         <div v-if="optionsBox" class="z-30 absolute shadow-md options-box bg-white w-24 text-sm border rounded" v-on-clickaway="away">
-             <div class="px-2 py-1 text-center hover:bg-grey-lighter rounded-t">Edit</div>
-             <div @click="destroy" class="px-2 py-1 text-center hover:bg-grey-lighter rounded-b">Remove</div>
-         </div>
-    </div>
+            <div>
+                <span class="text-xs float-right pr-1 pt-3px" :class="[showOptions ? 'inline' : 'hidden']" @click="optionsBox = true">
+                    <i class="fas fa-ellipsis-v text-grey-dark hover:text-grey-darkest"></i>
+                </span>
+            </div>
+
+            <div v-if="optionsBox" class="z-30 absolute shadow-md options-box bg-white w-24 text-sm border rounded">
+                <div class="px-2 py-1 text-center hover:bg-grey-lighter rounded-t">Edit</div>
+                <div @click="destroy" class="px-2 py-1 text-center hover:bg-grey-lighter rounded-b">Remove</div>
+            </div>
+        </div>
+    </on-click-outside> 
 </template>
 
 <script>
-    import { mixin as clickaway } from 'vue-clickaway';
+    import OnClickOutside from './OnClickOutside.vue';
 
     export default {
         props: ['attributes'],
-        mixins: [clickaway],
+        components: { OnClickOutside },
         data() {
             return {
                 id: this.attributes.id,
                 showOptions: false,
-                optionsBox: false
+                optionsBox: false,
+                colors: [
+                    'text-indigo', 'text-orange', 'text-red-light', 'text-blue'
+                ],
+            }
+        },
+        computed: {
+            randomColor() {
+                return this.colors[Math.floor(Math.random() * this.colors.length)];
             }
         },
         methods: {
@@ -36,7 +50,7 @@
 
                 this.$emit('deleted', this.id);
             },
-            away() {
+            hideOptionsBox() {
                 this.optionsBox = false;
             },
 
@@ -46,7 +60,7 @@
                    project: this.attributes.id,
                    url: `${window.location}?project=${this.id}`
                 });
-            }
+            },
         }
     }
 </script>

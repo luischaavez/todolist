@@ -60,6 +60,7 @@ class CreateTaskTest extends TestCase
     function authorized_users_can_delete_tasks()
     {
         $user = factory(User::class)->create();
+        
         $task = factory(Task::class)->create([
             'user_id' => $user->id
         ]);
