@@ -13,10 +13,10 @@ class CompleteTaskTest extends TestCase
     /** @test */
     function a_user_can_mark_as_complete_one_task()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
         
         $task = factory(Task::class)
-            ->create(['user_id' => $user->id]);
+            ->create(['user_id' => auth()->id()]);
 
         $this->assertFalse($task->completed);
 
@@ -28,9 +28,10 @@ class CompleteTaskTest extends TestCase
     /** @test */
     function a_user_can_mark_as_incomplete_a_completed_task()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
+
         $task = factory(Task::class)->create([
-            'user_id' => $user->id,
+            'user_id' => auth()->id(),
             'completed' => true
         ]);
 

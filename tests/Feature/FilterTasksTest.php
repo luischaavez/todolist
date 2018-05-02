@@ -14,8 +14,6 @@ class FilterTasksTest extends TestCase
     /** @test */
     public function incomplete_tasks_are_filtered_by_default()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
 
         $completedTasks = factory(Task::class)->times(3)
@@ -39,8 +37,6 @@ class FilterTasksTest extends TestCase
     /** @test */
     public function completed_tasks_can_be_filtered()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
 
         $completedTasks = factory(Task::class)->times(3)
@@ -86,8 +82,6 @@ class FilterTasksTest extends TestCase
     /** @test */
     public function week_tasks_can_be_filtered()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
         
         $tasksOfLastWeek = factory(Task::class)->times(2)
@@ -112,6 +106,7 @@ class FilterTasksTest extends TestCase
     function project_tasks_can_be_filtered()
     {
         $user = factory(User::class)->create();
+        
         $project = factory(Project::class)->create(['user_id' => $user->id]);
 
         $taskWithProject = factory(Task::class)->times(3)

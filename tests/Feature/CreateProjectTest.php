@@ -13,32 +13,30 @@ class CreateProjectTest extends TestCase
     /** @test */
     function a_user_can_create_a_new_project()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
 
         $project = factory(Project::class)->make([
-            'user_id' => $user->id
+            'user_id' => auth()->id()
         ]);
 
-        $this->actingAs($user)
-            ->post(route('projects.store'), $project->toArray());
+        $this->post(route('projects.store'), $project->toArray());
 
         $this->assertDatabaseHas('projects', [
            'name'    => $project->name,
-           'user_id' => $user->id
+           'user_id' => $project->user->id
         ]);
     }
 
     /** @test */
     function authorized_users_can_delete_projects()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
         
         $project = factory(Project::class)->create([
-            'user_id' => $user->id
+            'user_id' => auth()->id()
         ]);
 
-        $this->actingAs($user)
-            ->json('DELETE', route('projects.destroy', $project));
+        $this->json('DELETE', route('projects.destroy', $project));
 
         $this->assertDatabaseMissing('projects', ['id' => $project->id]);
     }

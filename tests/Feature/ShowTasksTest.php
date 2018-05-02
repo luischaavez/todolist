@@ -13,15 +13,14 @@ class ShowTasksTest extends TestCase
     /**  @test */
     public function visit_tasks_page_display_all_the_user_tasks()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
 
         $tasks = factory(Task::class)->times(2)
             ->create([
-                'user_id' => $user->id
+                'user_id' => auth()->id()
             ]);
 
-        $this->actingAs($user)
-            ->json('GET', route('tasks.index'))
+        $this->json('GET', route('tasks.index'))
             ->assertStatus(200)
             ->assertJson($tasks->toArray());
     }

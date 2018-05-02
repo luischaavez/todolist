@@ -15,30 +15,27 @@ class CreateTaskTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_make_a_new_task()
     {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user)
+        $this->signIn()
             ->post(route('tasks.store'), [
                 'body' => 'Finish my homework'
             ]);
 
         $this->assertDatabaseHas('tasks', [
             'body'    => 'Finish my homework',
-            'user_id' => $user->id
+            'user_id' => auth()->id()
         ]);
     }
 
     /** @test */
     function users_can_create_tasks_in_a_given_project()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
 
         $project = factory(Project::class)->create([
-            'user_id' => $user->id
+            'user_id' => auth()->id()
         ]);
 
-        $this->actingAs($user)
-            ->post(route('tasks.store'), [
+        $this->post(route('tasks.store'), [
                'body'    => 'Finish project',
                'project' => $project->id
             ]);
@@ -46,7 +43,7 @@ class CreateTaskTest extends TestCase
         $this->assertDatabaseHas('tasks', [
            'body'       => 'Finish project',
            'project_id' =>  $project->id,
-           'user_id'    => $user->id
+           'user_id'    => auth()->id()
         ]);
     }
 
@@ -60,14 +57,13 @@ class CreateTaskTest extends TestCase
     /** @test */
     function authorized_users_can_delete_tasks()
     {
-        $user = factory(User::class)->create();
+        $this->signIn();
         
         $task = factory(Task::class)->create([
-            'user_id' => $user->id
+            'user_id' => auth()->id()
         ]);
 
-        $this->actingAs($user)
-            ->json('DELETE', route('tasks.destroy', $task))
+        $this->json('DELETE', route('tasks.destroy', $task))
             ->assertStatus(200);
 
         $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
