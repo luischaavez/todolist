@@ -17,7 +17,7 @@ class TasksController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of tasks.
      *
      * @param TasksFilters $filters
      * @return \App\Task
@@ -41,12 +41,12 @@ class TasksController extends Controller
     public function store()
     {
         $validatedData = request()->validate([
-           'task' => 'required',
+           'body' => 'required',
            'project' => 'exists:projects,id'
         ]);
 
         return Task::create([
-            'task'    => request()->get('task'),
+            'body'    => request()->get('body'),
             'project_id' => request()->has('project') ? request('project') : null,
             'user_id' => auth()->id()
         ]);
@@ -71,6 +71,10 @@ class TasksController extends Controller
      */
     public function destroy(Task $task)
     {
-       return $task->delete();
+       $task->delete();
+       
+       return response()->json([
+            'success' => true
+       ]);
     }
 }

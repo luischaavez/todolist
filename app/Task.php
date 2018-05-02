@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable = ["task", "completed", "user_id", "project_id"];
+    protected $fillable = ['body', 'completed', 'user_id', 'project_id'];
 
-    protected $casts = ["completed" => "boolean"];
+    protected $casts = ['completed' => 'boolean'];
 
     public function user()
     {

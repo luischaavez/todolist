@@ -37,11 +37,11 @@
 		},
 		methods: {
 			add() {
-				this.$emit('created', { task: this.newTask, completed: false});
+				this.$emit('created', { body: this.newTask, completed: false});
 
 				this.newTask = "";
 
-				this.setFocus()
+				this.setFocus();
 			},
 
 			display() {

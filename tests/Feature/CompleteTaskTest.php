@@ -14,6 +14,7 @@ class CompleteTaskTest extends TestCase
     function a_user_can_mark_as_complete_one_task()
     {
         $user = factory(User::class)->create();
+        
         $task = factory(Task::class)
             ->create(['user_id' => $user->id]);
 

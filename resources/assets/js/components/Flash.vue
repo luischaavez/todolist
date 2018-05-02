@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center bg-green text-white text-sm font-bold p-4 flash-alert"
+    <div :class="color" class="flex items-center text-white text-sm font-bold p-4 flash-alert"
          role="alert"
          v-show="show"
          v-text="body"
@@ -14,6 +14,7 @@
         data() {
             return {
                 body: this.message,
+                level: 'success',
                 show: false
             }
         },
@@ -28,16 +29,30 @@
             );
         },
 
+        computed: {
+            color() {
+                let colors = {
+                    'success': 'bg-green',
+                    'error': 'bg-red',
+                    'warning': 'bg-yellow-dark'
+                };
+
+                return colors[this.level];
+            }
+        },
+
         methods: {
             flash(data) {
                 if(data) {
                     this.body = data.message;
+                    this.level = data.level
                 }
 
                 this.show = true;
 
                 this.hide();
             },
+            
             hide() {
                 setTimeout(() => {
                     this.show = false;

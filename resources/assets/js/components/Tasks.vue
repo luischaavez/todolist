@@ -11,18 +11,18 @@
 		</ul>
 
 		<div class="w-full">
-			<add-task @created="push"></add-task>
+			<new-task @created="push"></new-task>
 		</div>
 	</div>
 </template>
 
 <script>
 	import axios from 'axios';
-	import AddTask from './AddTask.vue';
+	import NewTask from './NewTask.vue';
 	import Task from './Task.vue';
 
 	export default {
-		components: { AddTask, Task },
+		components: { NewTask, Task },
 
 		data() {
 			return {
@@ -55,8 +55,8 @@
 			},
 
             applyFilter(data) {
-			    console.log(data);
-                let vm = this;
+				let vm = this;
+				
                 axios.get(data.url).then(response => {
                     vm.title = data.title;
 					vm.tasks = response.data;
@@ -66,8 +66,6 @@
 
 			remove(index) {
 				this.tasks.splice(index, 1);
-
-				flash('Task completed')
 			}
 		}
 	}

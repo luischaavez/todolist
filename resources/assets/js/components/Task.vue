@@ -12,7 +12,7 @@
                 >
                 
                 <label :for="'task-' + this.id" class="text-sm pl-2 cursor-pointer">
-                    {{ attributes.task }}
+                    {{ attributes.body }}
                 </label>
             </div>
 
@@ -52,6 +52,8 @@ export default {
 
         destroy() {
             axios.delete('/tasks/' + this.id);
+
+            flash('Task deleted successfully!');
 
             this.$emit('deleted', this.id);
         },

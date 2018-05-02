@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-if="creating" class="new-project-container p-2">
-            <input v-model="name" type="text" name="name" class="new-project w-full p-2 border rounded text-grey-darker">
-
+            <input v-model="name" @keydown.enter.prevent="add" type="text" name="name" class="new-project w-full p-2 border rounded text-grey-darker">
+					  
             <div class="mt-2 pr-2">
                 <button @click="add"
                         class="text-teal-dark text-xs font-bold bg-white border rounded border-teal-dark p-1 hover:bg-teal-dark hover:text-white add-project">
@@ -41,7 +41,7 @@
             add() {
                this.$emit('created', { name: this.name });
 
-               //flash('Project created successfully!')
+               flash('Project created successfully!');
 
                this.name = '';
             }

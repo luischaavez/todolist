@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\{ Project, User };
+use App\{ Project, Task, User };
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateProjectTest extends TestCase
@@ -41,5 +41,22 @@ class CreateProjectTest extends TestCase
             ->json('DELETE', route('projects.destroy', $project));
 
         $this->assertDatabaseMissing('projects', ['id' => $project->id]);
+    }
+
+    /** @test */
+    function tasks_are_deleted_when_a_project_is_deleted()
+    {
+        $project = factory(Project::class)->create();
+
+        $task = factory(Task::class)->create([
+            'project_id' => $project->id,
+            'user_id' => $project->user_id
+        ]);
+
+        $this->actingAs($project->user)
+            ->json('DELETE', route('projects.destroy', $project))
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);    
     }
 }

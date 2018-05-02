@@ -19,11 +19,11 @@ class CreateTaskTest extends TestCase
 
         $this->actingAs($user)
             ->post(route('tasks.store'), [
-                'task' => 'Finish my homework'
+                'body' => 'Finish my homework'
             ]);
 
         $this->assertDatabaseHas('tasks', [
-            'task'    => 'Finish my homework',
+            'body'    => 'Finish my homework',
             'user_id' => $user->id
         ]);
     }
@@ -32,18 +32,19 @@ class CreateTaskTest extends TestCase
     function users_can_create_tasks_in_a_given_project()
     {
         $user = factory(User::class)->create();
+
         $project = factory(Project::class)->create([
-            "user_id" => $user->id
+            'user_id' => $user->id
         ]);
 
         $this->actingAs($user)
             ->post(route('tasks.store'), [
-               'task'    => 'Finish project',
+               'body'    => 'Finish project',
                'project' => $project->id
             ]);
 
         $this->assertDatabaseHas('tasks', [
-           'task'       => 'Finish project',
+           'body'       => 'Finish project',
            'project_id' =>  $project->id,
            'user_id'    => $user->id
         ]);
@@ -66,7 +67,8 @@ class CreateTaskTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->json('DELETE', route('tasks.destroy', $task));
+            ->json('DELETE', route('tasks.destroy', $task))
+            ->assertStatus(200);
 
         $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }

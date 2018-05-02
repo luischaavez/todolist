@@ -5,7 +5,7 @@
             @mouseleave="showOptions = false"
         >
             <div @click="filter" class="">
-                <span :class="randomColor" class="text-xs fa fa-circle"></span>
+                <span :class="color" class="text-xs fa fa-circle mr-2"></span>
                 {{ attributes.name }}
             </div>
 
@@ -28,7 +28,9 @@
 
     export default {
         props: ['attributes'],
+
         components: { OnClickOutside },
+
         data() {
             return {
                 id: this.attributes.id,
@@ -39,14 +41,18 @@
                 ],
             }
         },
+
         computed: {
-            randomColor() {
+            color() {
                 return this.colors[Math.floor(Math.random() * this.colors.length)];
             }
         },
+
         methods: {
             destroy() {
                 axios.delete('/projects/' + this.id);
+
+                flash('Project deleted successfully!');
 
                 this.$emit('deleted', this.id);
             },
