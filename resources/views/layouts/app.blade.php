@@ -32,11 +32,21 @@
                         Register
                     </a>
                 @else
-                    <a href="{{ route('logout') }}" class="btn-teal-dark font-semibold capitalize no-underline p-2"
-                       onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
+                    <div class="dropdown relative inline-block p-2">
+                        <button class="text-white bg-teal-dark font-semibold pt-1 cursor-pointer">
+                            {{ auth()->user()->name }}
+                            <span class="fas fa-caret-down"></span>
+                        </button>
+                        <div class="dropdown-content hidden absolute bg-white z-10 py-2 mt-1">
+                            <a href="{{ route('logout') }}" class="text-black no-underline py-2 px-6 hover:bg-grey-light"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    Logout
+                            </a>
+                        </div>
+
+                    </div>
+                    
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}

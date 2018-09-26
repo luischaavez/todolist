@@ -11,7 +11,7 @@
 		</ul>
 
 		<div class="w-full">
-			<new-task @created="push"></new-task>
+			<new-task :project="project" @created="push"></new-task>
 		</div>
 	</div>
 </template>
@@ -44,15 +44,16 @@
             },
 
 			push(task) {
-			    if(this.project) {
+			    /* if(this.project) {
 			        task.project = this.project;
 				}
 
 				axios.post('/tasks/create', task)
 					.then(({data}) => {
 						this.tasks.push(data);
-					});
-			},
+					});*/
+				this.tasks.push(data);
+ 			},
 
             applyFilter(data) {
 				let vm = this;

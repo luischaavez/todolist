@@ -3,13 +3,17 @@
 		<div class="w-full">
 			<textarea ref="task"
 					  name="task"
-					  v-model="newTask"
+					  v-model="form.body"
 					  @keydown.enter.prevent="add"
 					  class="shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2"
 					  rows="3"
 					  autofocus
 			>
 			</textarea>
+
+			<span class="text-red" v-if="form.errors.has('body')">
+				<strong v-text="form.errors.get('body')"></strong>
+			</span>
 		</div>
 
 		<div class=" ml-2 mt-2 max-w-sm">
@@ -28,20 +32,38 @@
 </template>
 
 <script>
+	import Form from '../Form';
+
 	export default {
+
+		props: ['project'],
+
 		data() {
 			return {
-			    adding: false,
-				newTask: "",
+				adding: false,
+				form: new Form({
+					body: '',
+					project: null,
+				}),
 			}
 		},
 		methods: {
 			add() {
-				this.$emit('created', { body: this.newTask, completed: false});
+				/*
 
-				this.newTask = "";
+				this.newTask = "";*/
 
-				this.setFocus();
+				if(this.project) {
+			        this.form.project = this.project;
+				}
+
+				this.form.post('/tasks/create')
+					.then(({data}) => {
+						this.$emit('created', { body: this.form.body, completed: false});
+
+						this.setFocus();
+					});
+
 			},
 
 			display() {

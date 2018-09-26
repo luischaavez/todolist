@@ -40861,7 +40861,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewTask_vue__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewTask_vue__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewTask_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewTask_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Task_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Task_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Task_vue__);
@@ -40916,17 +40916,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.tasks = data;
 		},
 		push: function push(task) {
-			var _this2 = this;
-
-			if (this.project) {
-				task.project = this.project;
-			}
-
-			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks/create', task).then(function (_ref2) {
-				var data = _ref2.data;
-
-				_this2.tasks.push(data);
-			});
+			/* if(this.project) {
+       task.project = this.project;
+   }
+   axios.post('/tasks/create', task)
+   .then(({data}) => {
+   this.tasks.push(data);
+   });*/
+			this.tasks.push(data);
 		},
 		applyFilter: function applyFilter(data) {
 			var vm = this;
@@ -40944,9 +40941,243 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */,
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(50)
+/* template */
+var __vue_template__ = __webpack_require__(51)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/NewTask.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7b789c86", Component.options)
+  } else {
+    hotAPI.reload("data-v-7b789c86", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__(74);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+	props: ['project'],
+
+	data: function data() {
+		return {
+			adding: false,
+			form: new __WEBPACK_IMPORTED_MODULE_0__Form__["a" /* default */]({
+				body: '',
+				project: null
+			})
+		};
+	},
+
+	methods: {
+		add: function add() {
+			var _this = this;
+
+			/*
+   	this.newTask = "";*/
+
+			if (this.project) {
+				this.form.project = this.project;
+			}
+
+			this.form.post('/tasks/create').then(function (_ref) {
+				var data = _ref.data;
+
+				_this.$emit('created', { body: _this.form.body, completed: false });
+
+				_this.setFocus();
+			});
+		},
+		display: function display() {
+			this.adding = true;
+
+			this.$nextTick().then(this.setFocus);
+		},
+		setFocus: function setFocus() {
+			this.$refs.task.focus();
+		}
+	}
+});
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.adding
+    ? _c("div", { staticClass: "mx-3 flex flex-col add-container" }, [
+        _c("div", { staticClass: "w-full" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.body,
+                expression: "form.body"
+              }
+            ],
+            ref: "task",
+            staticClass:
+              "shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2",
+            attrs: { name: "task", rows: "3", autofocus: "" },
+            domProps: { value: _vm.form.body },
+            on: {
+              keydown: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key)
+                ) {
+                  return null
+                }
+                $event.preventDefault()
+                _vm.add($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "body", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.form.errors.has("body")
+            ? _c("span", { staticClass: "text-red" }, [
+                _c("strong", {
+                  domProps: { textContent: _vm._s(_vm.form.errors.get("body")) }
+                })
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: " ml-2 mt-2 max-w-sm" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "text-teal-dark text-sm font-bold bg-white border rounded border-teal-dark py-1 px-4 hover:bg-teal-dark hover:text-white add-task",
+              on: { click: _vm.add }
+            },
+            [_vm._v("\n\t\t\tAdd\n\t\t")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "text-red-light text-sm font-bold py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white",
+              on: {
+                click: function($event) {
+                  _vm.adding = false
+                }
+              }
+            },
+            [_vm._v("\n\t\t\tCancel\n\t\t")]
+          )
+        ])
+      ])
+    : _c("div", { staticClass: "text-left pl-3 cursor-pointer" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "text-teal text-sm show-container cursor-pointer hover:underline",
+            on: { click: _vm.display }
+          },
+          [_c("span", { staticClass: "fa fa-plus" }), _vm._v(" Add Task")]
+        )
+      ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7b789c86", module.exports)
+  }
+}
+
+/***/ }),
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41297,7 +41528,12 @@ var render = function() {
     _c(
       "div",
       { staticClass: "w-full" },
-      [_c("new-task", { on: { created: _vm.push } })],
+      [
+        _c("new-task", {
+          attrs: { project: _vm.project },
+          on: { created: _vm.push }
+        })
+      ],
       1
     )
   ])
@@ -41948,208 +42184,276 @@ if (false) {
 /* 72 */,
 /* 73 */,
 /* 74 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(75)
-/* template */
-var __vue_template__ = __webpack_require__(76)
-/* template functional */
-  var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/NewTask.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(75);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7b789c86", Component.options)
-  } else {
-    hotAPI.reload("data-v-7b789c86", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-module.exports = Component.exports
 
+
+var Form = function () {
+    /**
+     * Create a new Form instance.
+     *
+     * @param {object} data
+     */
+    function Form(data, attributes) {
+        _classCallCheck(this, Form);
+
+        this.attributes = attributes;
+        this.originalData = data;
+
+        for (var field in data) {
+            this[field] = data[field];
+        }
+
+        this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* default */]();
+    }
+
+    /**
+     * Fetch all relevant data for the form.
+     */
+
+
+    _createClass(Form, [{
+        key: 'data',
+        value: function data() {
+            var data = new FormData();
+
+            for (var property in this.originalData) {
+                if (this[property] == null || this[property] == '') {
+                    continue;
+                };
+
+                if (Array.isArray(this[property])) {
+                    for (var value in this[property]) {
+                        data.append(property + '[]', this[property][value]);
+                    }
+                } else {
+                    data.append(property, this[property]);
+                }
+            }
+
+            return data;
+        }
+
+        /**
+         * Reset the form fields.
+         */
+
+    }, {
+        key: 'reset',
+        value: function reset() {
+            for (var field in this.originalData) {
+                if (Array.isArray(field)) {
+                    this[field] = [];
+                } else {
+                    this[field] = '';
+                }
+            }
+
+            this.errors.clear();
+        }
+
+        /**
+         * Send a POST request to the given URL.
+         * .
+         * @param {string} url
+         */
+
+    }, {
+        key: 'post',
+        value: function post(url, headers) {
+            return this.submit('post', url);
+        }
+
+        /**
+         * Send a PUT request to the given URL.
+         * .
+         * @param {string} url
+         */
+
+    }, {
+        key: 'put',
+        value: function put(url) {
+            return this.submit('put', url);
+        }
+
+        /**
+         * Send a PATCH request to the given URL.
+         * .
+         * @param {string} url
+         */
+
+    }, {
+        key: 'patch',
+        value: function patch(url) {
+            return this.submit('patch', url);
+        }
+
+        /**
+         * Send a DELETE request to the given URL.
+         * .
+         * @param {string} url
+         */
+
+    }, {
+        key: 'delete',
+        value: function _delete(url) {
+            return this.submit('delete', url);
+        }
+
+        /**
+         * Submit the form.
+         *
+         * @param {string} requestType
+         * @param {string} url
+         */
+
+    }, {
+        key: 'submit',
+        value: function submit(requestType, url) {
+            var _this = this;
+
+            var headers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+            return new Promise(function (resolve, reject) {
+                axios[requestType](url, _this.data(), { headers: headers }).then(function (response) {
+                    _this.onSuccess(response.data);
+
+                    resolve(response.data);
+                }).catch(function (error) {
+                    _this.onFail(error.response.data.errors);
+
+                    reject(error.response.data);
+                });
+            });
+        }
+
+        /**
+         * Handle a successful form submission.
+         *
+         * @param {object} data
+         */
+
+    }, {
+        key: 'onSuccess',
+        value: function onSuccess(data) {
+            this.reset();
+        }
+
+        /**
+         * Handle a failed form submission.
+         *
+         * @param {object} errors
+         */
+
+    }, {
+        key: 'onFail',
+        value: function onFail(errors) {
+            this.errors.record(errors);
+        }
+    }]);
+
+    return Form;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Form);
 
 /***/ }),
 /* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			adding: false,
-			newTask: ""
-		};
-	},
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	methods: {
-		add: function add() {
-			this.$emit('created', { body: this.newTask, completed: false });
+var Errors = function () {
+    /**
+     * Create a new Errors instance.
+     */
+    function Errors() {
+        _classCallCheck(this, Errors);
 
-			this.newTask = "";
+        this.errors = {};
+    }
 
-			this.setFocus();
-		},
-		display: function display() {
-			this.adding = true;
+    /**
+     * Determine if an errors exists for the given field.
+     *
+     * @param {string} field
+     */
 
-			this.$nextTick().then(this.setFocus);
-		},
-		setFocus: function setFocus() {
-			this.$refs.task.focus();
-		}
-	}
-});
 
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
+    _createClass(Errors, [{
+        key: "has",
+        value: function has(field) {
+            return this.errors.hasOwnProperty(field);
+        }
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.adding
-    ? _c("div", { staticClass: "mx-3 flex flex-col add-container" }, [
-        _c("div", { staticClass: "w-full" }, [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newTask,
-                expression: "newTask"
-              }
-            ],
-            ref: "task",
-            staticClass:
-              "shadow appearance-none border rounded w-full py-1 px-3 text-grey-darker text-sm task resize-none mr-2",
-            attrs: { name: "task", rows: "3", autofocus: "" },
-            domProps: { value: _vm.newTask },
-            on: {
-              keydown: function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key)
-                ) {
-                  return null
-                }
-                $event.preventDefault()
-                _vm.add($event)
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.newTask = $event.target.value
-              }
+        /**
+         * Determine if we have any errors.
+         */
+
+    }, {
+        key: "any",
+        value: function any() {
+            return Object.keys(this.errors).length > 0;
+        }
+
+        /**
+         * Retrieve the error message for a field.
+         *
+         * @param {string} field
+         */
+
+    }, {
+        key: "get",
+        value: function get(field) {
+            if (this.errors[field]) {
+                return this.errors[field][0];
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: " ml-2 mt-2 max-w-sm" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "text-teal-dark text-sm font-bold bg-white border rounded border-teal-dark py-1 px-4 hover:bg-teal-dark hover:text-white add-task",
-              on: { click: _vm.add }
-            },
-            [_vm._v("\n\t\t\tAdd\n\t\t")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "text-red-light text-sm font-bold py-1 px-4 bg-white border rounded border-red hover:bg-red-light hover:text-white",
-              on: {
-                click: function($event) {
-                  _vm.adding = false
-                }
-              }
-            },
-            [_vm._v("\n\t\t\tCancel\n\t\t")]
-          )
-        ])
-      ])
-    : _c("div", { staticClass: "text-left pl-3 cursor-pointer" }, [
-        _c(
-          "a",
-          {
-            staticClass:
-              "text-teal text-sm show-container cursor-pointer hover:underline",
-            on: { click: _vm.display }
-          },
-          [_c("span", { staticClass: "fa fa-plus" }), _vm._v(" Add Task")]
-        )
-      ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7b789c86", module.exports)
-  }
-}
+        }
+
+        /**
+         * Record the new errors.
+         *
+         * @param {object} errors
+         */
+
+    }, {
+        key: "record",
+        value: function record(errors) {
+            this.errors = errors;
+        }
+
+        /**
+         * Clear one or all error fields.
+         *
+         * @param {string|null} field
+         */
+
+    }, {
+        key: "clear",
+        value: function clear(field) {
+            if (field) {
+                delete this.errors[field];
+
+                return;
+            }
+
+            this.errors = {};
+        }
+    }]);
+
+    return Errors;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Errors);
 
 /***/ })
 /******/ ]);
