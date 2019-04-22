@@ -31,7 +31,7 @@ class FilterTasksTest extends TestCase
         $this->actingAs($user)
             ->json('GET', '/tasks')
             ->assertStatus(200)
-            ->assertExactJson($incompleteTasks->toArray());
+            ->assertJsonFragment($incompleteTasks->first()->toArray());
     }
 
     /** @test */
@@ -54,7 +54,7 @@ class FilterTasksTest extends TestCase
         $this->actingAs($user)
             ->json('GET', '/tasks?completed=1')
             ->assertStatus(200)
-            ->assertExactJson($completedTasks->toArray())
+            ->assertJsonFragment($completedTasks->first()->toArray())
             ->assertJsonMissing($incompleteTasks->toArray());
     }
 
@@ -75,7 +75,7 @@ class FilterTasksTest extends TestCase
         $this->actingAs($user)
             ->json('GET', '/tasks?today=1')
             ->assertStatus(200)
-            ->assertExactJson($tasksOfToday->toArray())
+            ->assertJsonFragment($tasksOfToday->first()->toArray())
             ->assertJsonMissing($tasksOfYesterday->toArray());
     }
 
@@ -98,7 +98,7 @@ class FilterTasksTest extends TestCase
         $this->actingAs($user)
             ->json('GET', '/tasks?week=1')
             ->assertStatus(200)
-            ->assertExactJson($weekTasks->toArray())
+            ->assertJsonFragment($weekTasks->first()->toArray())
             ->assertJsonMissing($tasksOfLastWeek->toArray());
     }
 
@@ -123,7 +123,7 @@ class FilterTasksTest extends TestCase
         $this->actingAs($user)
             ->json('GET', "/tasks?project={$project->id}")
             ->assertStatus(200)
-            ->assertExactJson($taskWithProject->toArray())
+            ->assertJsonFragment($taskWithProject->first()->toArray())
             ->assertJsonMissing($taskWithoutProject->toArray());
     }
 }
