@@ -22,6 +22,6 @@ class ShowTasksTest extends TestCase
 
         $this->json('GET', route('tasks.index'))
             ->assertStatus(200)
-            ->assertJson($tasks->toArray());
+            ->assertJsonFragment($tasks->first()->toArray());
     }
 }
