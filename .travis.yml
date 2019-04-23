@@ -1,15 +1,27 @@
-language: php
+env: 
+  DOCKER_COMPOSER_VERSION: 1.23.2
 
-php:
- - 7.0
- - 7.1
+services:
+  - docker
 
-before_script:
-  - cp .env.travis .env
-  - mysql -e 'create database todolist_tests;'
-  - composer install --prefer-source --no-interaction
-  - php artisan key:generate
-  - php artisan migrate:refresh
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - docker-compose --version
 
-script:
-  - vendor/bin/phpunit
+  # Update the docker compose version
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  - docker-compose --version
+#before_script:
+#  - cp .env.travis .env
+# - mysql -e 'create database todolist_tests;'
+#  - composer install --prefer-source --no-interaction
+#  - php artisan key:generate
+#  - php artisan migrate:refresh
+
+#script:
+#  - vendor/bin/phpunit

@@ -1,0 +1,36 @@
+version:
+  services:
+    php:
+      image: php:7.1-fpm
+      volumes:
+        - .:/var/www/html
+      ports:
+        - "9000:9000"
+      networks:
+        - sdnet
+    node: 
+      image: node:8.16
+      volumes:
+        - .:/var/www/html
+      networks:
+        - sdnet
+    mysql:
+      image: mysql:5.7
+      ports: 
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: "secret"
+        MYSQL_DATABASE: "todolist"
+        MYSQL_USER: "homestead"
+        MYSQL_PASSWORD: "secret"
+      volumes:
+        - mysqldata:/var/lib/mysql
+      networks:
+        - sdnet
+  networks:
+    sdnet:
+      driver: "bridge"
+  volumes:
+    mysqldata:
+      driver: "local"   
+
